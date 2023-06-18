@@ -4,7 +4,7 @@ using Azure.Security.KeyVault.Secrets;
 
 namespace Raiqub.AzureKeyVaultReference;
 
-/// <summary>Supports parsing Key Vault references.</summary>
+/// <summary>Supports parsing Azure Key Vault references.</summary>
 public static class KeyVaultReferenceParser
 {
     private const string VaultUriSuffix = "vault.azure.net";
