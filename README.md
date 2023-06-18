@@ -10,7 +10,7 @@ _The Raiqub Azure Key Vault Reference NuGet packages simplifies the integration 
 
 ## Features
 * Seamless integration of Azure Key Vault references with `IConfiguration`
-* Easy retrieval of secrets and configuration settings from Azure Key Vault
+* Easy retrieval of secrets from configuration using Azure Key Vault references
 * Support for parsing Azure Key Vault references from strings
 
 ## NuGet Packages
