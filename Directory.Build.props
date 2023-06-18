@@ -22,9 +22,6 @@
     <Copyright>Copyright © Fabricio Godoy</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <NeutralLanguage>en</NeutralLanguage>
-    <RepositoryUrl>https://github.com/skarllot/azure-keyvault-reference</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
-    <PackageProjectUrl>https://github.com/skarllot/azure-keyvault-reference</PackageProjectUrl>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">
