@@ -46,7 +46,8 @@ To use the Azure Key Vault Configuration Provider, follow these steps:
 
 ```json
 {
-  "MySecret": "@Microsoft.KeyVault(SecretUri=https://your-keyvault.vault.azure.net/secrets/MySecret)"
+  "MySecret": "@Microsoft.KeyVault(SecretUri=https://your-keyvault.vault.azure.net/secrets/MySecret)",
+  "OtherSecret": "@Microsoft.KeyVault(VaultName=your-keyvault;SecretName=OtherSecret)"
 }
 ```
 

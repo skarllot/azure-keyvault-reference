@@ -23,7 +23,7 @@ public static class KeyVaultReferenceParser
     /// <returns>
     /// <see langword="true" /> if <paramref name="value" /> is a reference to Key Vault; otherwise, <see langword="false" />.
     /// </returns>
-    public static bool IsKeyVaultReference(string? value)
+    public static bool IsKeyVaultReference([NotNullWhen(true)] string? value)
     {
         return value is not null && s_basicKeyVaultReferenceRegex.IsMatch(value);
     }
