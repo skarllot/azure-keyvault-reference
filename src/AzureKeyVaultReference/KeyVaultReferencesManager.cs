@@ -2,20 +2,24 @@ using System.Collections.Concurrent;
 using Azure.Core;
 using Azure.Identity;
 using Azure.Security.KeyVault.Secrets;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Raiqub.AzureKeyVaultReference;
 
-public sealed class KeyVaultReferencesManager : IDisposable
+public sealed partial class KeyVaultReferencesManager : IDisposable
 {
-    private readonly ConcurrentDictionary<string, SecretClient> _clients = new();
     private readonly TokenCredential _credential;
+    private readonly ILogger<KeyVaultReferencesManager> _logger;
+    private readonly ConcurrentDictionary<string, SecretClient> _clients = new();
 
-    public KeyVaultReferencesManager(TokenCredential? credential = null)
+    public KeyVaultReferencesManager(
+        TokenCredential? credential = null,
+        ILogger<KeyVaultReferencesManager>? logger = null)
     {
         _credential = credential ?? new DefaultAzureCredential();
+        _logger = logger ?? NullLogger<KeyVaultReferencesManager>.Instance;
     }
-
-    public event Action<string>? InvalidKeyVaultReference;
 
     /// <inheritdoc />
     public void Dispose()
@@ -31,15 +35,21 @@ public sealed class KeyVaultReferencesManager : IDisposable
         }
 
         var result = ParseSecret(key, value);
-
-        if (result != null)
+        if (result == null)
         {
-            var client = GetSecretClient(result.VaultUri);
-            var secret = client.GetSecret(result.Name, result.Version);
-            return secret.Value;
+            return null;
         }
 
-        return null;
+        var client = GetSecretClient(result.VaultUri);
+        var secret = client.GetSecret(result.Name, result.Version);
+        if (secret.HasValue is false)
+        {
+            LogGetError(result.ToString());
+            return null;
+        }
+
+        return secret.Value;
+
     }
 
     private KeyVaultSecretReference? ParseSecret(string key, string? value)
@@ -56,7 +66,7 @@ public sealed class KeyVaultReferencesManager : IDisposable
         // the supported formats, we write a warning to the console.
         if (!isParsed)
         {
-            InvalidKeyVaultReference?.Invoke(key);
+            LogParseError(key);
         }
 
         return result;
@@ -75,4 +85,16 @@ public sealed class KeyVaultReferencesManager : IDisposable
             _ => new SecretClient(vaultUri, _credential));
 #endif
     }
+
+    [LoggerMessage(
+        EventId = 0,
+        Level = LogLevel.Warning,
+        Message = "Unable to parse the Key Vault reference for setting: {Key}")]
+    private partial void LogParseError(string key);
+
+    [LoggerMessage(
+        EventId = 1,
+        Level = LogLevel.Error,
+        Message = "Unable to get secret from the Key Vault: {Uri}")]
+    private partial void LogGetError(string uri);
 }

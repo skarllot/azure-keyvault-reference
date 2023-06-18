@@ -1,6 +1,5 @@
-using Azure.Core;
-using Colors.Net;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Primitives;
 
 namespace Raiqub.AzureKeyVaultReference.Configuration;
@@ -8,22 +7,25 @@ namespace Raiqub.AzureKeyVaultReference.Configuration;
 internal sealed class AzureKeyVaultReferenceConfigurationProvider : IConfigurationProvider, IDisposable
 {
     private readonly IConfigurationRoot _configuration;
+    private readonly ServiceProvider _serviceProvider;
     private readonly KeyVaultReferencesManager _keyVault;
     private readonly ConfigurationReloadToken _reloadToken = new();
     private readonly object _gate = new();
     private bool _isLocked;
 
-    public AzureKeyVaultReferenceConfigurationProvider(IConfigurationRoot configuration, TokenCredential? credential = null)
+    public AzureKeyVaultReferenceConfigurationProvider(
+        IConfigurationRoot configuration,
+        IServiceCollection serviceCollection)
     {
         _configuration = configuration;
-        _keyVault = new KeyVaultReferencesManager(credential);
-        _keyVault.InvalidKeyVaultReference += OnInvalidKeyVaultReference;
+        _serviceProvider = serviceCollection.BuildServiceProvider();
+        _keyVault = _serviceProvider.GetRequiredService<KeyVaultReferencesManager>();
     }
 
     public void Dispose()
     {
-        _keyVault.InvalidKeyVaultReference -= OnInvalidKeyVaultReference;
         _keyVault.Dispose();
+        _serviceProvider.Dispose();
     }
 
     public bool TryGet(string key, out string? value)
@@ -91,11 +93,5 @@ internal sealed class AzureKeyVaultReferenceConfigurationProvider : IConfigurati
                 _isLocked = false;
             }
         }
-    }
-
-    private static void OnInvalidKeyVaultReference(string key)
-    {
-        ColoredConsole.WriteLine(
-            StringStaticMethods.DarkYellow($"Unable to parse the Key Vault reference for setting: {key}"));
     }
 }

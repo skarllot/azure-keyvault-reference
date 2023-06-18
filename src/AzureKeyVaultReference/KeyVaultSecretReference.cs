@@ -45,4 +45,7 @@ public record KeyVaultSecretReference(Uri VaultUri, string Name, string? Version
             ? result
             : throw new FormatException();
     }
+
+    public override string ToString() =>
+        Version is null ? $"{VaultUri}secrets/{Name}" : $"{VaultUri}secrets/{Name}/{Version}";
 }

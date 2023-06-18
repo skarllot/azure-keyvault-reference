@@ -65,4 +65,40 @@ public class KeyVaultSecretReferenceTest
         keyVaultSecretReference2.Name.Should().Be(secret);
         keyVaultSecretReference2.Version.Should().Be(version);
     }
+
+    [Theory]
+    [InlineData(
+        "@Microsoft.KeyVault(SecretUri=https://myvault.vault.azure.net/secrets/mysecret/)",
+        "https://myvault.vault.azure.net/secrets/mysecret")]
+    [InlineData(
+        "@Microsoft.KeyVault(VaultName=myvault;SecretName=mysecret)",
+        "https://myvault.vault.azure.net/secrets/mysecret")]
+    [InlineData(
+        "@Microsoft.KeyVault(SecretUri=https://sampleurl/secrets/mysecret/version)",
+        "https://sampleurl/secrets/mysecret/version")]
+    [InlineData(
+        "@Microsoft.KeyVault(SecretUri=https://sampleurl/secrets/mysecret/version;)",
+        "https://sampleurl/secrets/mysecret/version")] // with semicolon at the end
+    [InlineData(
+        "@Microsoft.KeyVault(SecretUri=https://sampleurl/secrets/mysecret/)",
+        "https://sampleurl/secrets/mysecret")]
+    [InlineData(
+        "@Microsoft.KeyVault(VaultName=sampleVault;SecretName=mysecret)",
+        "https://samplevault.vault.azure.net/secrets/mysecret")]
+    [InlineData(
+        "@Microsoft.KeyVault(VaultName=sampleVault;SecretName=mysecret;)",
+        "https://samplevault.vault.azure.net/secrets/mysecret")] // with semicolon at the end
+    [InlineData(
+        "@Microsoft.KeyVault(VaultName=sampleVault;SecretName=mysecret;SecretVersion=secretVersion)",
+        "https://samplevault.vault.azure.net/secrets/mysecret/secretVersion")]
+    [InlineData(
+        "@Microsoft.KeyVault(SecretName=mysecret;VaultName=sampleVault;SecretVersion=secretVersion)",
+        "https://samplevault.vault.azure.net/secrets/mysecret/secretVersion")] // different order
+    public void ShouldToString(string input, string output)
+    {
+        var keyVaultSecretReference = KeyVaultSecretReference.Parse(input);
+        string result = keyVaultSecretReference.ToString();
+
+        result.Should().Be(output);
+    }
 }

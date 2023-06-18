@@ -1,15 +1,15 @@
-using Azure.Core;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Raiqub.AzureKeyVaultReference.Configuration;
 
 internal sealed class AzureKeyVaultReferenceConfigurationSource : IConfigurationSource
 {
-    private readonly TokenCredential? _credential;
+    private readonly IServiceCollection _services;
 
-    public AzureKeyVaultReferenceConfigurationSource(TokenCredential? credential = null)
+    public AzureKeyVaultReferenceConfigurationSource(IServiceCollection services)
     {
-        _credential = credential;
+        _services = services;
     }
 
     public IConfigurationProvider Build(IConfigurationBuilder builder)
@@ -19,6 +19,6 @@ internal sealed class AzureKeyVaultReferenceConfigurationSource : IConfiguration
             throw new NotSupportedException("The configuration builder must be of type ConfigurationManager");
         }
 
-        return new AzureKeyVaultReferenceConfigurationProvider(root, _credential);
+        return new AzureKeyVaultReferenceConfigurationProvider(root, _services);
     }
 }

@@ -1,5 +1,9 @@
 using Azure.Core;
+using Azure.Identity;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace Raiqub.AzureKeyVaultReference.Configuration;
 
@@ -13,10 +17,24 @@ public static class AzureKeyVaultReferenceConfigurationExtensions
     /// </summary>
     /// <param name="configurationManager">The configuration manager to configure.</param>
     /// <param name="credential">The credential to to use for authentication.</param>
+    /// <param name="configureLog">The <see cref="ILoggingBuilder"/> configuration delegate.</param>
+    /// <param name="configureCache">Configure the provided <see cref="MemoryCacheOptions"/>.</param>
     public static void AddAzureKeyVaultReferenceResolver(
         this ConfigurationManager configurationManager,
-        TokenCredential? credential = null)
+        TokenCredential? credential = null,
+        Action<ILoggingBuilder>? configureLog = null,
+        Action<MemoryCacheOptions>? configureCache = null)
     {
-        ((IConfigurationBuilder)configurationManager).Add(new AzureKeyVaultReferenceConfigurationSource(credential));
+        configureLog ??= static builder => builder.AddConsole();
+        configureCache ??= static _ => { };
+
+        var services = new ServiceCollection()
+            .AddSingleton(credential ?? new DefaultAzureCredential())
+            .AddTransient<KeyVaultReferencesManager>()
+            .AddLogging(configureLog)
+            .AddMemoryCache(configureCache);
+
+        ((IConfigurationBuilder)configurationManager).Add(
+            new AzureKeyVaultReferenceConfigurationSource(services));
     }
 }
