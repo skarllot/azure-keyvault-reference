@@ -1,6 +1,9 @@
 # Azure Key Vault Reference
 
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://raw.githubusercontent.com/EngRajabi/Enum.Source.Generator/master/LICENSE) [![Nuget](https://img.shields.io/nuget/v/Raiqub.AzureKeyVaultReference.Configuration)](https://www.nuget.org/packages/Raiqub.AzureKeyVaultReference.Configuration) [![Nuget](https://img.shields.io/nuget/dt/Raiqub.AzureKeyVaultReference.Configuration?label=Nuget.org%20Downloads&style=flat-square&color=blue)](https://www.nuget.org/packages/Raiqub.AzureKeyVaultReference.Configuration)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://raw.githubusercontent.com/EngRajabi/Enum.Source.Generator/master/LICENSE)
+![workflow](https://github.com/skarllot/azure-keyvault-reference/actions/workflows/dotnet.yml/badge.svg?branch=main)
+[![Nuget](https://img.shields.io/nuget/v/Raiqub.AzureKeyVaultReference.Configuration)](https://www.nuget.org/packages/Raiqub.AzureKeyVaultReference.Configuration)
+[![Nuget](https://img.shields.io/nuget/dt/Raiqub.AzureKeyVaultReference.Configuration?label=Nuget.org%20Downloads&style=flat-square&color=blue)](https://www.nuget.org/packages/Raiqub.AzureKeyVaultReference.Configuration)
 
 _The Raiqub Azure Key Vault Reference NuGet packages simplifies the integration of Azure Key Vault with your .NET applications by providing support for Azure Key Vault references in the `IConfiguration` system._
 
