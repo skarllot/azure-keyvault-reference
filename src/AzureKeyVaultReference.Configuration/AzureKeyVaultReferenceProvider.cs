@@ -123,17 +123,17 @@ public sealed partial class AzureKeyVaultReferenceProvider : IConfigurationProvi
 
     private string? TryGetFromKeyVault(string key, string originalValue)
     {
+        if (_memoryCache.TryGetValue(key, out object cacheValue))
+        {
+            return (string)cacheValue;
+        }
+
         // If we detect that a key vault reference was attempted, but did not match any of
         // the supported formats, we write a warning to the console.
         if (KeyVaultSecretReference.TryParse(originalValue, out var result) is false)
         {
             LogParseError(key);
             return null;
-        }
-
-        if (_memoryCache.TryGetValue(key, out object cacheValue))
-        {
-            return (string)cacheValue;
         }
 
         Response<KeyVaultSecret> response = _keyVault.GetSecretValue(result);
