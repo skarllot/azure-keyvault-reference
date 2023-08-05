@@ -1,4 +1,7 @@
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
+using Raiqub.AzureKeyVaultReference.Configuration.RecursiveProvider;
+using Raiqub.AzureKeyVaultReference.Configuration.WrapProvider;
 
 namespace Raiqub.AzureKeyVaultReference.Configuration;
 
@@ -17,6 +20,31 @@ public static class AzureKeyVaultReferenceExtensions
         AzureKeyVaultReferenceOptions? options = null)
     {
         options ??= new AzureKeyVaultReferenceOptions();
-        ((IConfigurationBuilder)configurationManager).Add(new AzureKeyVaultReferenceSource(options));
+        ((IConfigurationBuilder)configurationManager).Add(new AzureKeyVaultReferenceRecursiveSource(options));
     }
+
+    public static void ConfigureAppConfigurationWithKeyVaultReferenceResolver(
+        this IHostBuilder hostBuilder,
+        Action<IConfigurationBuilder> configureDelegate,
+        AzureKeyVaultReferenceOptions? options = null)
+    {
+        hostBuilder.Properties[typeof(InternalProperty)] = new InternalProperty(
+            configureDelegate,
+            options ?? new AzureKeyVaultReferenceOptions());
+
+        hostBuilder.ConfigureAppConfiguration(Configure);
+    }
+
+    private static void Configure(HostBuilderContext context, IConfigurationBuilder builder)
+    {
+        var property = (InternalProperty)context.Properties[typeof(InternalProperty)];
+        var configurationManager = new ConfigurationManager();
+        property.ConfigureDelegate(configurationManager);
+
+        builder.Add(new AzureKeyVaultReferenceWrapSource(configurationManager, property.Options));
+    }
+
+    private sealed record InternalProperty(
+        Action<IConfigurationBuilder> ConfigureDelegate,
+        AzureKeyVaultReferenceOptions Options);
 }

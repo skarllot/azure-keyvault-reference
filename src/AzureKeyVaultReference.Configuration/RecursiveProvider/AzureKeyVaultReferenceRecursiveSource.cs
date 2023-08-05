@@ -1,12 +1,12 @@
 using Microsoft.Extensions.Configuration;
 
-namespace Raiqub.AzureKeyVaultReference.Configuration;
+namespace Raiqub.AzureKeyVaultReference.Configuration.RecursiveProvider;
 
-public sealed class AzureKeyVaultReferenceSource : IConfigurationSource
+public sealed class AzureKeyVaultReferenceRecursiveSource : IConfigurationSource
 {
     private readonly AzureKeyVaultReferenceOptions _options;
 
-    public AzureKeyVaultReferenceSource(AzureKeyVaultReferenceOptions options)
+    public AzureKeyVaultReferenceRecursiveSource(AzureKeyVaultReferenceOptions options)
     {
         _options = options;
     }
@@ -18,6 +18,6 @@ public sealed class AzureKeyVaultReferenceSource : IConfigurationSource
             throw new NotSupportedException("The configuration builder must be of type ConfigurationManager");
         }
 
-        return new AzureKeyVaultReferenceProvider(root, _options);
+        return new AzureKeyVaultReferenceRecursiveProvider(root, _options, new KeyVaultReferencesManager());
     }
 }
