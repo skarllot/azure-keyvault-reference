@@ -1,14 +1,14 @@
 using Microsoft.Extensions.Configuration;
 
-namespace Raiqub.AzureKeyVaultReference.Configuration.WrapProvider;
+namespace Raiqub.AzureKeyVaultReference.Configuration.ProxyProvider;
 
-public class AzureKeyVaultReferenceWrapSource : IConfigurationSource
+public class AzureKeyVaultReferenceProxySource : IConfigurationSource
 {
     private readonly IConfigurationRoot _internalConfiguration;
     private readonly AzureKeyVaultReferenceOptions _options;
     private readonly IKeyVaultReferencesManager _keyVaultReferencesManager;
 
-    public AzureKeyVaultReferenceWrapSource(
+    public AzureKeyVaultReferenceProxySource(
         IConfigurationRoot internalConfiguration,
         AzureKeyVaultReferenceOptions options,
         IKeyVaultReferencesManager keyVaultReferencesManager)
@@ -20,7 +20,7 @@ public class AzureKeyVaultReferenceWrapSource : IConfigurationSource
 
     public IConfigurationProvider Build(IConfigurationBuilder builder)
     {
-        return new AzureKeyVaultReferenceWrapProvider(
+        return new AzureKeyVaultReferenceProxyProvider(
             _internalConfiguration,
             _options,
             _keyVaultReferencesManager);

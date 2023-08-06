@@ -134,6 +134,7 @@ public partial class AzureKeyVaultReferenceBaseProvider : IDisposable
         return response.Value.Value;
     }
 
+#if NET6_0_OR_GREATER
     [LoggerMessage(
         EventId = 0,
         Level = LogLevel.Warning,
@@ -145,4 +146,21 @@ public partial class AzureKeyVaultReferenceBaseProvider : IDisposable
         Level = LogLevel.Error,
         Message = "Unable to get secret from the Key Vault: {Uri}")]
     private partial void LogGetError(RequestFailedException exception, string uri);
+#else
+    private static readonly Action<ILogger, string, Exception?> s_logParseErrorCallback = LoggerMessage.Define<string>(
+        LogLevel.Warning,
+        new EventId(0, nameof(LogParseError)),
+        "Unable to parse the Key Vault reference for setting: {Key}");
+
+    private static readonly Action<ILogger, string, Exception?> s_logGetErrorCallback = LoggerMessage.Define<string>(
+        LogLevel.Warning,
+        new EventId(0, nameof(LogParseError)),
+        "Unable to get secret from the Key Vault: {Uri}");
+
+    private void LogParseError(string key) =>
+        s_logParseErrorCallback(_logger, key, null);
+
+    private void LogGetError(RequestFailedException exception, string uri) =>
+        s_logGetErrorCallback(_logger, uri, exception);
+#endif
 }

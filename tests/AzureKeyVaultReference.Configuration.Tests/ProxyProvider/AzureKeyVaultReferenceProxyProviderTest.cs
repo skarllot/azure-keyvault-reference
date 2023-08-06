@@ -1,16 +1,16 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.Memory;
+using Raiqub.AzureKeyVaultReference.Configuration.ProxyProvider;
 using Raiqub.AzureKeyVaultReference.Configuration.Tests.BaseProvider;
-using Raiqub.AzureKeyVaultReference.Configuration.WrapProvider;
 
-namespace Raiqub.AzureKeyVaultReference.Configuration.Tests.WrapProvider;
+namespace Raiqub.AzureKeyVaultReference.Configuration.Tests.ProxyProvider;
 
-public class AzureKeyVaultReferenceWrapProviderTest : AzureKeyVaultReferenceBaseProviderTest
+public class AzureKeyVaultReferenceProxyProviderTest : AzureKeyVaultReferenceBaseProviderTest
 {
-    public AzureKeyVaultReferenceWrapProviderTest()
+    public AzureKeyVaultReferenceProxyProviderTest()
         : base(
             (builder, options, manager) => builder.Add(
-                new AzureKeyVaultReferenceWrapSource(CreateInnerConfiguration(), options, manager)))
+                new AzureKeyVaultReferenceProxySource(CreateInnerConfiguration(), options, manager)))
     {
     }
 

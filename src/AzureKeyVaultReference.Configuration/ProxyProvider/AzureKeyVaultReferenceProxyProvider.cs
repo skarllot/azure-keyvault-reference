@@ -2,14 +2,14 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Primitives;
 using Raiqub.AzureKeyVaultReference.Configuration.BaseProvider;
 
-namespace Raiqub.AzureKeyVaultReference.Configuration.WrapProvider;
+namespace Raiqub.AzureKeyVaultReference.Configuration.ProxyProvider;
 
-public sealed class AzureKeyVaultReferenceWrapProvider : AzureKeyVaultReferenceBaseProvider, IConfigurationProvider
+public sealed class AzureKeyVaultReferenceProxyProvider : AzureKeyVaultReferenceBaseProvider, IConfigurationProvider
 {
     private readonly IConfigurationRoot _configuration;
     private readonly ConfigurationReloadToken _reloadToken = new();
 
-    public AzureKeyVaultReferenceWrapProvider(
+    public AzureKeyVaultReferenceProxyProvider(
         IConfigurationRoot configuration,
         AzureKeyVaultReferenceOptions options,
         IKeyVaultReferencesManager keyVaultReferencesManager)
