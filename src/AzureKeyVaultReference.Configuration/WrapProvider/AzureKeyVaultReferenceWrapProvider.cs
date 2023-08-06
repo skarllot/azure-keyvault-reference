@@ -7,12 +7,13 @@ namespace Raiqub.AzureKeyVaultReference.Configuration.WrapProvider;
 public sealed class AzureKeyVaultReferenceWrapProvider : AzureKeyVaultReferenceBaseProvider, IConfigurationProvider
 {
     private readonly IConfigurationRoot _configuration;
+    private readonly ConfigurationReloadToken _reloadToken = new();
 
     public AzureKeyVaultReferenceWrapProvider(
         IConfigurationRoot configuration,
         AzureKeyVaultReferenceOptions options,
-        IKeyVaultReferencesManager keyVault)
-        : base(options, keyVault)
+        IKeyVaultReferencesManager keyVaultReferencesManager)
+        : base(options, keyVaultReferencesManager)
     {
         _configuration = configuration;
     }
@@ -30,15 +31,15 @@ public sealed class AzureKeyVaultReferenceWrapProvider : AzureKeyVaultReferenceB
     }
 
     /// <inheritdoc />
-    public IChangeToken? GetReloadToken()
+    public IChangeToken GetReloadToken()
     {
-        return null;
+        return _reloadToken;
     }
 
     /// <inheritdoc />
     public void Load()
     {
-        LoadMemoryValues();
+        // Secrets are resolved on-demand
     }
 
     /// <inheritdoc />

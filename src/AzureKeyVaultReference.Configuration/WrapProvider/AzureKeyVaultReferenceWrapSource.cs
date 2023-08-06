@@ -6,13 +6,16 @@ public class AzureKeyVaultReferenceWrapSource : IConfigurationSource
 {
     private readonly IConfigurationRoot _internalConfiguration;
     private readonly AzureKeyVaultReferenceOptions _options;
+    private readonly IKeyVaultReferencesManager _keyVaultReferencesManager;
 
     public AzureKeyVaultReferenceWrapSource(
         IConfigurationRoot internalConfiguration,
-        AzureKeyVaultReferenceOptions options)
+        AzureKeyVaultReferenceOptions options,
+        IKeyVaultReferencesManager keyVaultReferencesManager)
     {
         _internalConfiguration = internalConfiguration;
         _options = options;
+        _keyVaultReferencesManager = keyVaultReferencesManager;
     }
 
     public IConfigurationProvider Build(IConfigurationBuilder builder)
@@ -20,6 +23,6 @@ public class AzureKeyVaultReferenceWrapSource : IConfigurationSource
         return new AzureKeyVaultReferenceWrapProvider(
             _internalConfiguration,
             _options,
-            new KeyVaultReferencesManager());
+            _keyVaultReferencesManager);
     }
 }

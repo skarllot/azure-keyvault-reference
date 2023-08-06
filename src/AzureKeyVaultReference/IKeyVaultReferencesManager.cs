@@ -11,5 +11,6 @@ public interface IKeyVaultReferencesManager : IDisposable
     /// </summary>
     /// <param name="secretReference">The secret reference to retrieve the value.</param>
     /// <returns>The result of Key Vault secret value retrieval.</returns>
+    /// <exception cref="RequestFailedException">The server returned an error. See <see cref="Exception.Message"/> for details returned from the server.</exception>
     Response<KeyVaultSecret> GetSecretValue(KeyVaultSecretReference secretReference);
 }

@@ -20,6 +20,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureKeyVaultReference.Test
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureKeyVaultReference.Configuration", "src\AzureKeyVaultReference.Configuration\AzureKeyVaultReference.Configuration.csproj", "{B6FE2C30-1145-4170-80DB-4517C7D290E9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureKeyVaultReference.Configuration.Tests", "tests\AzureKeyVaultReference.Configuration.Tests\AzureKeyVaultReference.Configuration.Tests.csproj", "{B00F5ECD-38DA-4339-BCBD-6B784DF6BD72}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +34,7 @@ Global
 		{FC57945C-1BFB-46D9-A4C3-685E19CC830A} = {A9901853-A6EB-4474-9E44-29663F0C38C8}
 		{A208E75E-4CEC-4528-BD81-A1E2749EEFB0} = {9BAFB452-577D-4D28-B11E-D509EBC40B4F}
 		{B6FE2C30-1145-4170-80DB-4517C7D290E9} = {A9901853-A6EB-4474-9E44-29663F0C38C8}
+		{B00F5ECD-38DA-4339-BCBD-6B784DF6BD72} = {9BAFB452-577D-4D28-B11E-D509EBC40B4F}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{FC57945C-1BFB-46D9-A4C3-685E19CC830A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -46,5 +49,9 @@ Global
 		{B6FE2C30-1145-4170-80DB-4517C7D290E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B6FE2C30-1145-4170-80DB-4517C7D290E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B6FE2C30-1145-4170-80DB-4517C7D290E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B00F5ECD-38DA-4339-BCBD-6B784DF6BD72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B00F5ECD-38DA-4339-BCBD-6B784DF6BD72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B00F5ECD-38DA-4339-BCBD-6B784DF6BD72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B00F5ECD-38DA-4339-BCBD-6B784DF6BD72}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

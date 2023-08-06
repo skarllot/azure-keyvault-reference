@@ -9,13 +9,14 @@ public sealed class AzureKeyVaultReferenceRecursiveProvider
 {
     private readonly IConfigurationRoot _configuration;
     private readonly object _gate = new();
+    private readonly ConfigurationReloadToken _reloadToken = new();
     private bool _isLocked;
 
     public AzureKeyVaultReferenceRecursiveProvider(
         IConfigurationRoot configuration,
         AzureKeyVaultReferenceOptions options,
-        IKeyVaultReferencesManager keyVault)
-        : base(options, keyVault)
+        IKeyVaultReferencesManager keyVaultReferencesManager)
+        : base(options, keyVaultReferencesManager)
     {
         _configuration = configuration;
     }
@@ -50,15 +51,15 @@ public sealed class AzureKeyVaultReferenceRecursiveProvider
     }
 
     /// <inheritdoc />
-    public IChangeToken? GetReloadToken()
+    public IChangeToken GetReloadToken()
     {
-        return null;
+        return _reloadToken;
     }
 
     /// <inheritdoc />
     public void Load()
     {
-        LoadMemoryValues();
+        // Secrets are resolved on-demand
     }
 
     /// <inheritdoc />

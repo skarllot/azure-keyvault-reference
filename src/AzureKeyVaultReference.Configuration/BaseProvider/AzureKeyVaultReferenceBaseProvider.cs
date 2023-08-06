@@ -14,18 +14,18 @@ public partial class AzureKeyVaultReferenceBaseProvider : IDisposable
     private readonly TimeSpan _cacheRetentionTime;
     private readonly ILoggerFactory _loggerFactory;
     private readonly ILogger _logger;
-    private readonly IKeyVaultReferencesManager _keyVault;
+    private readonly IKeyVaultReferencesManager _keyVaultReferencesManager;
     private readonly IMemoryCache _memoryCache;
     private MemoryConfigurationProvider? _addedValues;
 
     protected AzureKeyVaultReferenceBaseProvider(
         AzureKeyVaultReferenceOptions options,
-        IKeyVaultReferencesManager keyVault)
+        IKeyVaultReferencesManager keyVaultReferencesManager)
     {
         _cacheRetentionTime = options.CacheRetentionTime;
         _loggerFactory = ConsoleLoggerFactory.Create(options);
         _logger = _loggerFactory.CreateLogger(GetType());
-        _keyVault = keyVault;
+        _keyVaultReferencesManager = keyVaultReferencesManager;
         _memoryCache = MemoryCacheFactory.Create(options, _loggerFactory);
     }
 
@@ -41,7 +41,7 @@ public partial class AzureKeyVaultReferenceBaseProvider : IDisposable
         if (disposing)
         {
             _memoryCache.Dispose();
-            _keyVault.Dispose();
+            _keyVaultReferencesManager.Dispose();
             _loggerFactory.Dispose();
         }
     }
@@ -57,19 +57,7 @@ public partial class AzureKeyVaultReferenceBaseProvider : IDisposable
     {
         _addedValues ??= new MemoryConfigurationProvider(new MemoryConfigurationSource());
         _addedValues.Set(key, value);
-    }
-
-    protected void LoadMemoryValues()
-    {
-        if (_addedValues is null)
-        {
-            return;
-        }
-
-        foreach (var entry in _addedValues)
-        {
-            TryGetFromKeyVault(entry.Key, entry.Value);
-        }
+        _memoryCache.Remove(key);
     }
 
     protected bool TryGetInternal(
@@ -131,10 +119,14 @@ public partial class AzureKeyVaultReferenceBaseProvider : IDisposable
             return originalValue;
         }
 
-        Response<KeyVaultSecret> response = _keyVault.GetSecretValue(result);
-        if (response.HasValue is false)
+        Response<KeyVaultSecret> response;
+        try
         {
-            LogGetError(result.ToString());
+            response = _keyVaultReferencesManager.GetSecretValue(result);
+        }
+        catch (RequestFailedException e)
+        {
+            LogGetError(e, result.ToString());
             return originalValue;
         }
 
@@ -152,5 +144,5 @@ public partial class AzureKeyVaultReferenceBaseProvider : IDisposable
         EventId = 1,
         Level = LogLevel.Error,
         Message = "Unable to get secret from the Key Vault: {Uri}")]
-    private partial void LogGetError(string uri);
+    private partial void LogGetError(RequestFailedException exception, string uri);
 }

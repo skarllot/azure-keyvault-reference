@@ -20,7 +20,8 @@ public static class AzureKeyVaultReferenceExtensions
         AzureKeyVaultReferenceOptions? options = null)
     {
         options ??= new AzureKeyVaultReferenceOptions();
-        ((IConfigurationBuilder)configurationManager).Add(new AzureKeyVaultReferenceRecursiveSource(options));
+        ((IConfigurationBuilder)configurationManager).Add(
+            new AzureKeyVaultReferenceRecursiveSource(options, new KeyVaultReferencesManager()));
     }
 
     public static void ConfigureAppConfigurationWithKeyVaultReferenceResolver(
@@ -41,7 +42,11 @@ public static class AzureKeyVaultReferenceExtensions
         var configurationManager = new ConfigurationManager();
         property.ConfigureDelegate(configurationManager);
 
-        builder.Add(new AzureKeyVaultReferenceWrapSource(configurationManager, property.Options));
+        builder.Add(
+            new AzureKeyVaultReferenceWrapSource(
+                configurationManager,
+                property.Options,
+                new KeyVaultReferencesManager(property.Options.Credential)));
     }
 
     private sealed record InternalProperty(
