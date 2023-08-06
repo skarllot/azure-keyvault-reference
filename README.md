@@ -30,14 +30,15 @@ Before you begin, you'll need the following:
 To use the library, you can install the desired NuGet package(s) in your Web project and add the configuration provider. Here's an example of how to add the configuration provider:
 
 ```csharp
+var builder = Host.CreateDefaultBuilder(args);
+builder.ConfigureAzureKeyVaultReference();
+```
+
+or using WebApplication
+
+```csharp
 var builder = WebApplication.CreateBuilder(args);
-
-// ...
-
-// Just before building WebApplication
-builder.Configuration.AddAzureKeyVaultReferenceResolver();
-
-var app = builder.Build();
+builder.Host.ConfigureAzureKeyVaultReference();
 ```
 
 ## Guide
@@ -62,9 +63,10 @@ using Microsoft.Extensions.Configuration;
 using Raiqub.AzureKeyVaultReference.Configuration;
 
 var configuration = new ConfigurationManager()
-    .SetBasePath(Directory.GetCurrentDirectory())
-    .AddJsonFile("appsettings.json")
-    .AddAzureKeyVaultReferenceResolver() // It must be always the last provider
+    .AddAzureKeyVaultReference(builder =>
+        builder
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json"))
     .Build();
 
 var mySecretValue = configuration["MySecret"];

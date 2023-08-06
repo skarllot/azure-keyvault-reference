@@ -22,6 +22,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureKeyVaultReference.Conf
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureKeyVaultReference.Configuration.Tests", "tests\AzureKeyVaultReference.Configuration.Tests\AzureKeyVaultReference.Configuration.Tests.csproj", "{B00F5ECD-38DA-4339-BCBD-6B784DF6BD72}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{525B050C-7EAE-4CDF-BD6E-AB0EF8732217}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleWebApplication", "samples\SampleWebApplication\SampleWebApplication.csproj", "{42145701-35DD-4F59-9BC0-C88C1BA533FB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleWorkerService", "samples\SampleWorkerService\SampleWorkerService.csproj", "{FBF949F5-22F0-444A-BE2C-3A4EDB11285A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +41,8 @@ Global
 		{A208E75E-4CEC-4528-BD81-A1E2749EEFB0} = {9BAFB452-577D-4D28-B11E-D509EBC40B4F}
 		{B6FE2C30-1145-4170-80DB-4517C7D290E9} = {A9901853-A6EB-4474-9E44-29663F0C38C8}
 		{B00F5ECD-38DA-4339-BCBD-6B784DF6BD72} = {9BAFB452-577D-4D28-B11E-D509EBC40B4F}
+		{42145701-35DD-4F59-9BC0-C88C1BA533FB} = {525B050C-7EAE-4CDF-BD6E-AB0EF8732217}
+		{FBF949F5-22F0-444A-BE2C-3A4EDB11285A} = {525B050C-7EAE-4CDF-BD6E-AB0EF8732217}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{FC57945C-1BFB-46D9-A4C3-685E19CC830A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -53,5 +61,13 @@ Global
 		{B00F5ECD-38DA-4339-BCBD-6B784DF6BD72}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B00F5ECD-38DA-4339-BCBD-6B784DF6BD72}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B00F5ECD-38DA-4339-BCBD-6B784DF6BD72}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42145701-35DD-4F59-9BC0-C88C1BA533FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42145701-35DD-4F59-9BC0-C88C1BA533FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42145701-35DD-4F59-9BC0-C88C1BA533FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42145701-35DD-4F59-9BC0-C88C1BA533FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBF949F5-22F0-444A-BE2C-3A4EDB11285A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBF949F5-22F0-444A-BE2C-3A4EDB11285A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBF949F5-22F0-444A-BE2C-3A4EDB11285A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBF949F5-22F0-444A-BE2C-3A4EDB11285A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

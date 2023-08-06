@@ -1,4 +1,3 @@
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.Memory;
 using Raiqub.AzureKeyVaultReference.Configuration.RecursiveProvider;
 using Raiqub.AzureKeyVaultReference.Configuration.Tests.BaseProvider;
