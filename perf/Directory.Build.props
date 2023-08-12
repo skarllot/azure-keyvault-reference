@@ -5,6 +5,7 @@
   <PropertyGroup>
     <IsPackable>false</IsPackable>
     <IsPublishable>false</IsPublishable>
+    <IsTestProject>true</IsTestProject>
     <RootNamespace>$(MSBuildProjectName)</RootNamespace>
     <AssemblyName>$(RootNamespace)</AssemblyName>
     <EnableNETAnalyzers>false</EnableNETAnalyzers>

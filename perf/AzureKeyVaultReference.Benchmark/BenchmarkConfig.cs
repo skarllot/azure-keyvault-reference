@@ -13,7 +13,7 @@ public class BenchmarkConfig : ManualConfig
     public BenchmarkConfig()
     {
         AddColumnProvider(DefaultColumnProviders.Instance)
-            .AddExporter(AsciiDocExporter.Default)
+            .AddExporter(MarkdownExporter.GitHub)
             .AddLogger(ConsoleLogger.Default)
             .AddAnalyser(defaultConfig.GetAnalysers().ToArray())
             .AddValidator(defaultConfig.GetValidators().ToArray())
@@ -23,24 +23,26 @@ public class BenchmarkConfig : ManualConfig
 
         var job = Job.MediumRun;
 
-        AddJob(CustomJob(job, useNuGet: true).AsBaseline());
-        AddJob(CustomJob(job, useNuGet: false));
+        AddJob(CustomJob(job, "2.0.4").AsBaseline());
+        AddJob(CustomJob(job, null));
+
+        HideColumns(Column.Arguments, Column.NuGetReferences);
     }
 
-    private static Job CustomJob(Job job, bool useNuGet)
+    private static Job CustomJob(Job job, string? pkgVersion)
     {
         var result = job
-            .WithId("AzureKeyVaultReference" + (useNuGet ? string.Empty : "-dev"))
+            .WithId(pkgVersion ?? "dev")
             .WithArguments(
                 new[]
                 {
-                    new MsBuildArgument("/p:BenchmarkFromNuGet=" + (useNuGet ? "true" : "false")),
+                    new MsBuildArgument("/p:BenchmarkFromNuGet=" + (pkgVersion is null ? "false" : "true")),
                     new MsBuildArgument("/p:SignAssembly=false"),
                 });
 
-        if (useNuGet)
+        if (pkgVersion is not null)
         {
-            result = result.WithNuGet("Raiqub.AzureKeyVaultReference", "2.0.4");
+            result = result.WithNuGet("Raiqub.AzureKeyVaultReference", pkgVersion);
         }
 
         return result;
