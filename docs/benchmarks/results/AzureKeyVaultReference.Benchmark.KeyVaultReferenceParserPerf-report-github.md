@@ -10,16 +10,16 @@ AMD Ryzen 5 1600, 1 CPU, 12 logical and 6 physical cores
 IterationCount=15  LaunchCount=2  WarmupCount=10  
 
 ```
-|                         Method |   Job |        Mean |     Error |    StdDev | Ratio |   Gen0 | Allocated | Alloc Ratio |
-|------------------------------- |------ |------------:|----------:|----------:|------:|-------:|----------:|------------:|
-|    IsKeyVaultReferenceWhenItIs | 2.0.4 |    95.99 ns |  0.894 ns |  1.283 ns |  1.00 |      - |         - |          NA |
-|    IsKeyVaultReferenceWhenItIs |   dev |    93.37 ns |  0.463 ns |  0.693 ns |  0.97 |      - |         - |          NA |
-|                                |       |             |           |           |       |        |           |             |
-| IsKeyVaultReferenceWhenItIsNot | 2.0.4 |    51.56 ns |  0.426 ns |  0.625 ns |  1.00 |      - |         - |          NA |
-| IsKeyVaultReferenceWhenItIsNot |   dev |    42.69 ns |  0.320 ns |  0.479 ns |  0.83 |      - |         - |          NA |
-|                                |       |             |           |           |       |        |           |             |
-|               TryParseWithName | 2.0.4 | 1,644.09 ns | 12.014 ns | 17.610 ns |  1.00 | 0.5684 |    2384 B |        1.00 |
-|               TryParseWithName |   dev | 1,624.76 ns |  6.684 ns |  9.150 ns |  0.99 | 0.5684 |    2384 B |        1.00 |
-|                                |       |             |           |           |       |        |           |             |
-|                TryParseWithUri | 2.0.4 | 2,025.15 ns | 15.213 ns | 22.299 ns |  1.00 | 0.5112 |    2152 B |        1.00 |
-|                TryParseWithUri |   dev | 2,030.39 ns |  6.614 ns |  9.899 ns |  1.00 | 0.5112 |    2152 B |        1.00 |
+|                         Method |   Job |        Mean |     Error |    StdDev | Ratio | RatioSD |   Gen0 | Allocated | Alloc Ratio |
+|------------------------------- |------ |------------:|----------:|----------:|------:|--------:|-------:|----------:|------------:|
+|    IsKeyVaultReferenceWhenItIs | 2.0.4 |   101.50 ns |  0.839 ns |  1.120 ns |  1.00 |    0.00 |      - |         - |          NA |
+|    IsKeyVaultReferenceWhenItIs |   dev |    90.30 ns |  0.250 ns |  0.343 ns |  0.89 |    0.01 |      - |         - |          NA |
+|                                |       |             |           |           |       |         |        |           |             |
+| IsKeyVaultReferenceWhenItIsNot | 2.0.4 |    43.40 ns |  0.217 ns |  0.305 ns |  1.00 |    0.00 |      - |         - |          NA |
+| IsKeyVaultReferenceWhenItIsNot |   dev |    47.45 ns |  0.171 ns |  0.240 ns |  1.09 |    0.01 |      - |         - |          NA |
+|                                |       |             |           |           |       |         |        |           |             |
+|               TryParseWithName | 2.0.4 | 1,681.31 ns | 14.770 ns | 21.183 ns |  1.00 |    0.00 | 0.5684 |    2384 B |        1.00 |
+|               TryParseWithName |   dev | 1,673.04 ns |  9.158 ns | 12.838 ns |  1.00 |    0.02 | 0.5684 |    2384 B |        1.00 |
+|                                |       |             |           |           |       |         |        |           |             |
+|                TryParseWithUri | 2.0.4 | 2,069.75 ns | 11.353 ns | 15.916 ns |  1.00 |    0.00 | 0.5112 |    2152 B |        1.00 |
+|                TryParseWithUri |   dev | 2,080.43 ns | 18.672 ns | 26.779 ns |  1.01 |    0.01 | 0.5112 |    2152 B |        1.00 |

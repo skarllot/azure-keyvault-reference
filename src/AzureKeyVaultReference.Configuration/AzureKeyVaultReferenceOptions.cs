@@ -9,10 +9,16 @@ namespace Raiqub.AzureKeyVaultReference.Configuration;
 /// </summary>
 public class AzureKeyVaultReferenceOptions
 {
+    private TokenCredential? _credential;
+
     /// <summary>
     /// Gets or sets the credential to to use for authentication (default: <see cref="DefaultAzureCredential"/>).
     /// </summary>
-    public TokenCredential Credential { get; set; } = new DefaultAzureCredential();
+    public TokenCredential Credential
+    {
+        get => _credential ??= new DefaultAzureCredential();
+        set => _credential = value;
+    }
 
     /// <summary>
     /// Gets or sets the maximum number of cache entries (default: 100).
@@ -28,4 +34,9 @@ public class AzureKeyVaultReferenceOptions
     /// Gets or sets the options for log using console logger.
     /// </summary>
     public ConsoleLoggerOptions LoggerOptions { get; set; } = new();
+
+    /// <summary>
+    /// Gets or sets the getter of default Key Vault name or URI when it is not defined on Key Vault reference.
+    /// </summary>
+    public Func<string?> GetDefaultVaultNameOrUri { get; set; } = static () => null;
 }

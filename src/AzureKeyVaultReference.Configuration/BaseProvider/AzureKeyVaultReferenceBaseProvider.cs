@@ -16,6 +16,7 @@ public partial class AzureKeyVaultReferenceBaseProvider : IDisposable
     private readonly ILogger _logger;
     private readonly IKeyVaultReferencesManager _keyVaultReferencesManager;
     private readonly IMemoryCache _memoryCache;
+    private readonly string? _defaultVaultNameOrUri;
     private MemoryConfigurationProvider? _addedValues;
 
     protected AzureKeyVaultReferenceBaseProvider(
@@ -27,6 +28,7 @@ public partial class AzureKeyVaultReferenceBaseProvider : IDisposable
         _logger = _loggerFactory.CreateLogger(GetType());
         _keyVaultReferencesManager = keyVaultReferencesManager;
         _memoryCache = MemoryCacheFactory.Create(options, _loggerFactory);
+        _defaultVaultNameOrUri = options.GetDefaultVaultNameOrUri();
     }
 
     /// <inheritdoc />
@@ -113,7 +115,7 @@ public partial class AzureKeyVaultReferenceBaseProvider : IDisposable
 
         // If we detect that a key vault reference was attempted, but did not match any of
         // the supported formats, we write a warning to the console.
-        if (KeyVaultSecretReference.TryParse(originalValue, out var result) is false)
+        if (KeyVaultSecretReference.TryParse(originalValue, _defaultVaultNameOrUri, out var result) is false)
         {
             LogParseError(key);
             return originalValue;
