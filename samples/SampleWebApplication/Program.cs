@@ -2,7 +2,8 @@ using Raiqub.AzureKeyVaultReference.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Host.ConfigureAzureKeyVaultReference();
+builder.Host.ConfigureAzureKeyVaultReference(
+    options => options.GetDefaultVaultNameOrUri = () => Environment.GetEnvironmentVariable("KEYVAULTNAME"));
 
 // Add services to the container.
 builder.Services.AddControllers();

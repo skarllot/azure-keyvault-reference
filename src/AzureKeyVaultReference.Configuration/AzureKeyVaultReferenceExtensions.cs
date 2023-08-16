@@ -17,21 +17,15 @@ public static class AzureKeyVaultReferenceExtensions
     /// The delegate for configuring the <see cref="IConfigurationBuilder"/> that will be used to construct the
     /// <see cref="IConfiguration"/> to be proxied by the Azure Key Vault reference provider.
     /// </param>
-    /// <param name="options">The <see cref="AzureKeyVaultReferenceOptions"/> to use.</param>
+    /// <param name="optionsAction">An optional action to configure the <see cref="AzureKeyVaultReferenceOptions"/> to use.</param>
     /// <returns>The <see cref="IConfigurationBuilder"/>.</returns>
     /// <exception cref="ArgumentNullException"><paramref name="builder" /> or <paramref name="configureDelegate"/> is <see langword="null" />.</exception>
     public static IConfigurationBuilder AddAzureKeyVaultReference(
         this IConfigurationBuilder builder,
         Action<IConfigurationBuilder> configureDelegate,
-        AzureKeyVaultReferenceOptions? options = null)
+        Action<AzureKeyVaultReferenceOptions>? optionsAction = null)
     {
-        options ??= new AzureKeyVaultReferenceOptions();
-
-        return AddAzureKeyVaultReference(
-            builder,
-            configureDelegate,
-            new KeyVaultReferencesManager(options.Credential),
-            options);
+        return AddAzureKeyVaultReference(builder, configureDelegate, null, optionsAction);
     }
 
     /// <summary>Adds the Azure Key Vault reference proxy provider to <paramref name="builder"/>.</summary>
@@ -41,25 +35,25 @@ public static class AzureKeyVaultReferenceExtensions
     /// <see cref="IConfiguration"/> to be proxied by the Azure Key Vault reference provider.
     /// </param>
     /// <param name="keyVaultReferencesManager">Manager for retrieving Key Vault secrets values.</param>
-    /// <param name="options">The <see cref="AzureKeyVaultReferenceOptions"/> to use.</param>
+    /// <param name="optionsAction">An optional action to configure the <see cref="AzureKeyVaultReferenceOptions"/> to use.</param>
     /// <returns>The <see cref="IConfigurationBuilder"/>.</returns>
     /// <exception cref="ArgumentNullException"><paramref name="builder" />, <paramref name="configureDelegate"/> or <paramref name="keyVaultReferencesManager"/> is <see langword="null" />.</exception>
     public static IConfigurationBuilder AddAzureKeyVaultReference(
         this IConfigurationBuilder builder,
         Action<IConfigurationBuilder> configureDelegate,
-        IKeyVaultReferencesManager keyVaultReferencesManager,
-        AzureKeyVaultReferenceOptions? options = null)
+        IKeyVaultReferencesManager? keyVaultReferencesManager,
+        Action<AzureKeyVaultReferenceOptions>? optionsAction = null)
     {
 #if NET6_0_OR_GREATER
         ArgumentNullException.ThrowIfNull(builder);
         ArgumentNullException.ThrowIfNull(configureDelegate);
-        ArgumentNullException.ThrowIfNull(keyVaultReferencesManager);
 #else
         Requires.NotNull(builder);
         Requires.NotNull(configureDelegate);
-        Requires.NotNull(keyVaultReferencesManager);
-
 #endif
+
+        var options = new AzureKeyVaultReferenceOptions();
+        optionsAction?.Invoke(options);
 
         var internalBuilder = new ConfigurationBuilder();
         configureDelegate(internalBuilder);
@@ -67,8 +61,8 @@ public static class AzureKeyVaultReferenceExtensions
         return builder.Add(
             new AzureKeyVaultReferenceProxySource(
                 internalBuilder.Build(),
-                options ?? new AzureKeyVaultReferenceOptions(),
-                keyVaultReferencesManager));
+                options,
+                keyVaultReferencesManager ?? new KeyVaultReferencesManager(options.Credential)));
     }
 
     /// <summary>
@@ -76,15 +70,14 @@ public static class AzureKeyVaultReferenceExtensions
     /// sources. To avoid the proxy being overwritten, ensure this is called after all configuration sources are added.
     /// </summary>
     /// <param name="hostBuilder">The <see cref="IHostBuilder"/> to configure.</param>
-    /// <param name="options">The <see cref="AzureKeyVaultReferenceOptions"/> to use.</param>
+    /// <param name="optionsAction">An optional action to configure the <see cref="AzureKeyVaultReferenceOptions"/> to use.</param>
     /// <returns>The <see cref="IHostBuilder"/>.</returns>
     /// <exception cref="ArgumentNullException"><paramref name="hostBuilder" /> is <see langword="null" />.</exception>
     public static IHostBuilder ConfigureAzureKeyVaultReference(
         this IHostBuilder hostBuilder,
-        AzureKeyVaultReferenceOptions? options = null)
+        Action<AzureKeyVaultReferenceOptions>? optionsAction = null)
     {
-        options ??= new AzureKeyVaultReferenceOptions();
-        return ConfigureAzureKeyVaultReference(hostBuilder, new KeyVaultReferencesManager(options.Credential), options);
+        return ConfigureAzureKeyVaultReference(hostBuilder, null, optionsAction);
     }
 
     /// <summary>
@@ -93,28 +86,32 @@ public static class AzureKeyVaultReferenceExtensions
     /// </summary>
     /// <param name="hostBuilder">The <see cref="IHostBuilder"/> to configure.</param>
     /// <param name="keyVaultReferencesManager">Manager for retrieving Key Vault secrets values.</param>
-    /// <param name="options">The <see cref="AzureKeyVaultReferenceOptions"/> to use.</param>
+    /// <param name="optionsAction">An optional action to configure the <see cref="AzureKeyVaultReferenceOptions"/> to use.</param>
     /// <returns>The <see cref="IHostBuilder"/>.</returns>
     /// <exception cref="ArgumentNullException"><paramref name="hostBuilder" /> or <paramref name="keyVaultReferencesManager"/> is <see langword="null" />.</exception>
     public static IHostBuilder ConfigureAzureKeyVaultReference(
         this IHostBuilder hostBuilder,
-        IKeyVaultReferencesManager keyVaultReferencesManager,
-        AzureKeyVaultReferenceOptions? options = null)
+        IKeyVaultReferencesManager? keyVaultReferencesManager,
+        Action<AzureKeyVaultReferenceOptions>? optionsAction = null)
     {
 #if NET6_0_OR_GREATER
         ArgumentNullException.ThrowIfNull(hostBuilder);
-        ArgumentNullException.ThrowIfNull(keyVaultReferencesManager);
 #else
         Requires.NotNull(hostBuilder);
-        Requires.NotNull(keyVaultReferencesManager);
 #endif
 
         return hostBuilder.ConfigureAppConfiguration(
-            (_, builder) => builder.Add(
-                new AzureKeyVaultReferenceProxySource(
-                    builder.MoveSourcesToNewConfiguration(),
-                    options ?? new AzureKeyVaultReferenceOptions(),
-                    keyVaultReferencesManager)));
+            (_, builder) =>
+            {
+                var options = new AzureKeyVaultReferenceOptions();
+                optionsAction?.Invoke(options);
+
+                builder.Add(
+                    new AzureKeyVaultReferenceProxySource(
+                        builder.MoveSourcesToNewConfiguration(),
+                        options,
+                        keyVaultReferencesManager ?? new KeyVaultReferencesManager(options.Credential)));
+            });
     }
 
 #if NET6_0_OR_GREATER

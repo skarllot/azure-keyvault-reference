@@ -3,7 +3,8 @@ using SampleWorkerService;
 
 IHost host = Host.CreateDefaultBuilder(args)
     .ConfigureServices(services => { services.AddHostedService<Worker>(); })
-    .ConfigureAzureKeyVaultReference()
+    .ConfigureAzureKeyVaultReference(
+        options => options.GetDefaultVaultNameOrUri = () => Environment.GetEnvironmentVariable("KEYVAULTNAME"))
     .Build();
 
 await host.RunAsync();
