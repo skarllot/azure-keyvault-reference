@@ -39,4 +39,16 @@ public class AzureKeyVaultReferenceOptions
     /// Gets or sets the getter of default Key Vault name or URI when it is not defined on Key Vault reference.
     /// </summary>
     public Func<string?> GetDefaultVaultNameOrUri { get; set; } = static () => null;
+
+    internal void CopyFrom(AzureKeyVaultReferenceOptions? options)
+    {
+        if (options is null)
+            return;
+
+        _credential = options._credential;
+        CacheSize = options.CacheSize;
+        CacheRetentionTime = options.CacheRetentionTime;
+        LoggerOptions = options.LoggerOptions;
+        GetDefaultVaultNameOrUri = options.GetDefaultVaultNameOrUri;
+    }
 }

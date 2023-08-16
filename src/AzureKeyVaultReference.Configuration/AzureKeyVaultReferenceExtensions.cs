@@ -17,6 +17,48 @@ public static class AzureKeyVaultReferenceExtensions
     /// The delegate for configuring the <see cref="IConfigurationBuilder"/> that will be used to construct the
     /// <see cref="IConfiguration"/> to be proxied by the Azure Key Vault reference provider.
     /// </param>
+    /// <param name="options">The <see cref="AzureKeyVaultReferenceOptions"/> to use.</param>
+    /// <returns>The <see cref="IConfigurationBuilder"/>.</returns>
+    /// <exception cref="ArgumentNullException"><paramref name="builder" /> or <paramref name="configureDelegate"/> is <see langword="null" />.</exception>
+    [Obsolete("Use other overload passing options using delegate")]
+    public static IConfigurationBuilder AddAzureKeyVaultReference(
+        this IConfigurationBuilder builder,
+        Action<IConfigurationBuilder> configureDelegate,
+        AzureKeyVaultReferenceOptions? options)
+    {
+        return AddAzureKeyVaultReference(builder, configureDelegate, o => o.CopyFrom(options));
+    }
+
+    /// <summary>Adds the Azure Key Vault reference proxy provider to <paramref name="builder"/>.</summary>
+    /// <param name="builder">The <see cref="IConfigurationBuilder"/> to add to.</param>
+    /// <param name="configureDelegate">
+    /// The delegate for configuring the <see cref="IConfigurationBuilder"/> that will be used to construct the
+    /// <see cref="IConfiguration"/> to be proxied by the Azure Key Vault reference provider.
+    /// </param>
+    /// <param name="keyVaultReferencesManager">Manager for retrieving Key Vault secrets values.</param>
+    /// <param name="options">The <see cref="AzureKeyVaultReferenceOptions"/> to use.</param>
+    /// <returns>The <see cref="IConfigurationBuilder"/>.</returns>
+    /// <exception cref="ArgumentNullException"><paramref name="builder" />, <paramref name="configureDelegate"/> or <paramref name="keyVaultReferencesManager"/> is <see langword="null" />.</exception>
+    [Obsolete("Use other overload passing options using delegate")]
+    public static IConfigurationBuilder AddAzureKeyVaultReference(
+        this IConfigurationBuilder builder,
+        Action<IConfigurationBuilder> configureDelegate,
+        IKeyVaultReferencesManager? keyVaultReferencesManager,
+        AzureKeyVaultReferenceOptions? options)
+    {
+        return AddAzureKeyVaultReference(
+            builder,
+            configureDelegate,
+            keyVaultReferencesManager,
+            o => o.CopyFrom(options));
+    }
+
+    /// <summary>Adds the Azure Key Vault reference proxy provider to <paramref name="builder"/>.</summary>
+    /// <param name="builder">The <see cref="IConfigurationBuilder"/> to add to.</param>
+    /// <param name="configureDelegate">
+    /// The delegate for configuring the <see cref="IConfigurationBuilder"/> that will be used to construct the
+    /// <see cref="IConfiguration"/> to be proxied by the Azure Key Vault reference provider.
+    /// </param>
     /// <param name="optionsAction">An optional action to configure the <see cref="AzureKeyVaultReferenceOptions"/> to use.</param>
     /// <returns>The <see cref="IConfigurationBuilder"/>.</returns>
     /// <exception cref="ArgumentNullException"><paramref name="builder" /> or <paramref name="configureDelegate"/> is <see langword="null" />.</exception>
@@ -63,6 +105,40 @@ public static class AzureKeyVaultReferenceExtensions
                 internalBuilder.Build(),
                 options,
                 keyVaultReferencesManager ?? new KeyVaultReferencesManager(options.Credential)));
+    }
+
+    /// <summary>
+    /// Configures a Azure Key Vault reference provider as proxy of existing <see cref="IHostBuilder"/> configuration
+    /// sources. To avoid the proxy being overwritten, ensure this is called after all configuration sources are added.
+    /// </summary>
+    /// <param name="hostBuilder">The <see cref="IHostBuilder"/> to configure.</param>
+    /// <param name="options">The <see cref="AzureKeyVaultReferenceOptions"/> to use.</param>
+    /// <returns>The <see cref="IHostBuilder"/>.</returns>
+    /// <exception cref="ArgumentNullException"><paramref name="hostBuilder" /> is <see langword="null" />.</exception>
+    [Obsolete("Use other overload passing options using delegate")]
+    public static IHostBuilder ConfigureAzureKeyVaultReference(
+        this IHostBuilder hostBuilder,
+        AzureKeyVaultReferenceOptions? options)
+    {
+        return ConfigureAzureKeyVaultReference(hostBuilder, o => o.CopyFrom(options));
+    }
+
+    /// <summary>
+    /// Configures a Azure Key Vault reference provider as proxy of existing <see cref="IHostBuilder"/> configuration
+    /// sources. To avoid the proxy being overwritten, ensure this is called after all configuration sources are added.
+    /// </summary>
+    /// <param name="hostBuilder">The <see cref="IHostBuilder"/> to configure.</param>
+    /// <param name="keyVaultReferencesManager">Manager for retrieving Key Vault secrets values.</param>
+    /// <param name="options">The <see cref="AzureKeyVaultReferenceOptions"/> to use.</param>
+    /// <returns>The <see cref="IHostBuilder"/>.</returns>
+    /// <exception cref="ArgumentNullException"><paramref name="hostBuilder" /> or <paramref name="keyVaultReferencesManager"/> is <see langword="null" />.</exception>
+    [Obsolete("Use other overload passing options using delegate")]
+    public static IHostBuilder ConfigureAzureKeyVaultReference(
+        this IHostBuilder hostBuilder,
+        IKeyVaultReferencesManager keyVaultReferencesManager,
+        AzureKeyVaultReferenceOptions? options)
+    {
+        return ConfigureAzureKeyVaultReference(hostBuilder, keyVaultReferencesManager, o => o.CopyFrom(options));
     }
 
     /// <summary>
