@@ -72,7 +72,8 @@ var configuration = new ConfigurationManager()
 var mySecretValue = configuration["MySecret"];
 ```
 
-5. **Parsing Azure Key Vault references**: If you need to parse Azure Key Vault references from strings programmatically, you can use the **\`KeyVaultSecretReference\`** class provided by this package.
+### Parsing Azure Key Vault references
+If you need to parse Azure Key Vault references from strings programmatically, you can use the **\`KeyVaultSecretReference\`** class provided by this package.
 
 ```csharp
 using Raiqub.AzureKeyVaultReference;
@@ -83,6 +84,30 @@ var parsedReference = KeyVaultSecretReference.Parse(reference);
 // ParsedReference.VaultUri: "https://your-keyvault.vault.azure.net"
 // ParsedReference.Name: "MySecret"
 // ParsedReference.Version: null
+```
+
+### Default Azure Key Vault
+This library supports defining a default Key Vault to use when one is not defined on Azure Key Vault reference.
+
+```csharp
+var builder = Host.CreateDefaultBuilder(args);
+builder.ConfigureAzureKeyVaultReference(
+    options => options.GetDefaultVaultNameOrUri = () => Environment.GetEnvironmentVariable("KEYVAULTURI"));
+```
+
+or using WebApplication
+
+```csharp
+builder.Host.ConfigureAzureKeyVaultReference(
+    options => options.GetDefaultVaultNameOrUri = () => Environment.GetEnvironmentVariable("KEYVAULTNAME"));
+```
+
+Doing so the Azure Key Vault reference do not need to specify the Key Vault Name
+
+```json
+{
+  "MySecret": "@Microsoft.KeyVault(SecretName=MySecret)"
+}
 ```
 
 ## Contributing
