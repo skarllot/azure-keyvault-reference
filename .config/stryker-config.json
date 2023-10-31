@@ -1,0 +1,25 @@
+﻿{
+    "stryker-config": {
+        "reporters": [
+            "json",
+            "html",
+            "markdown",
+            "dashboard"
+        ],
+        "ignore-methods": [
+            "*Exception.ctor",
+            "ConfigureAwait",
+            "Dispose",
+            "DisposeAsync",
+            "DisposeAsyncCore",
+            "SuppressFinalize"
+        ],
+        "mutate": [
+            "!**/Sample*/**/*.*"
+        ],
+        "thresholds": {
+            "break": 55
+        },
+        "ignore-mutations": []
+    }
+}

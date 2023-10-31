@@ -1,9 +1,10 @@
 # Azure Key Vault Reference
 
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://raw.githubusercontent.com/EngRajabi/Enum.Source.Generator/master/LICENSE)
-![workflow](https://github.com/skarllot/azure-keyvault-reference/actions/workflows/dotnet.yml/badge.svg?branch=main)
-[![Nuget](https://img.shields.io/nuget/v/Raiqub.AzureKeyVaultReference.Configuration)](https://www.nuget.org/packages/Raiqub.AzureKeyVaultReference.Configuration)
-[![Nuget](https://img.shields.io/nuget/dt/Raiqub.AzureKeyVaultReference.Configuration?label=Nuget.org%20Downloads&style=flat-square&color=blue)](https://www.nuget.org/packages/Raiqub.AzureKeyVaultReference.Configuration)
+[![Build status](https://github.com/skarllot/azure-keyvault-reference/actions/workflows/dotnet.yml/badge.svg?branch=main)](https://github.com/skarllot/azure-keyvault-reference/actions)
+[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/skarllot/azure-keyvault-reference/badge)](https://securityscorecards.dev/viewer/?uri=github.com/skarllot/azure-keyvault-reference)
+[![Code coverage](https://codecov.io/gh/skarllot/azure-keyvault-reference/branch/main/graph/badge.svg)](https://codecov.io/gh/skarllot/azure-keyvault-reference)
+[![Mutation testing badge](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fskarllot%2Fazure-keyvault-reference%2Fmain)](https://dashboard.stryker-mutator.io/reports/github.com/skarllot/azure-keyvault-reference/main)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://raw.githubusercontent.com/skarllot/Expressions/master/LICENSE)
 
 _The Raiqub Azure Key Vault Reference NuGet packages simplifies the integration of Azure Key Vault with your .NET applications by providing support for Azure Key Vault references in the `IConfiguration` system._
 
@@ -17,8 +18,8 @@ _The Raiqub Azure Key Vault Reference NuGet packages simplifies the integration 
 * Support for parsing Azure Key Vault references from strings
 
 ## NuGet Packages
-* **Raiqub.AzureKeyVaultReference**: provides support for parsing Azure Key Vault references
-* **Raiqub.AzureKeyVaultReference.Configuration**: provides support for integrating Azure Key Vault references with `IConfiguration`
+* [![NuGet](https://buildstats.info/nuget/Raiqub.AzureKeyVaultReference)](https://www.nuget.org/packages/Raiqub.AzureKeyVaultReference/) **Raiqub.AzureKeyVaultReference**: provides support for parsing Azure Key Vault references
+* [![NuGet](https://buildstats.info/nuget/Raiqub.AzureKeyVaultReference.Configuration)](https://www.nuget.org/packages/Raiqub.AzureKeyVaultReference.Configuration/) **Raiqub.AzureKeyVaultReference.Configuration**: provides support for integrating Azure Key Vault references with `IConfiguration`
 
 ## Prerequisites
 Before you begin, you'll need the following:
