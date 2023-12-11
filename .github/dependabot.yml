@@ -9,6 +9,13 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+    groups:
+      coverlet:
+        patterns:
+          - coverlet*
+      xunit:
+        patterns:
+          - xunit*
     ignore:
       # Ignore the libraries which are pinned
       - dependency-name: "Microsoft.Extensions.*"
