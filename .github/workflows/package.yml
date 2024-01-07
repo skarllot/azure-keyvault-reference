@@ -29,20 +29,26 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: ✨ Setup .NET
+      - name: 🧰 Setup .NET
         uses: actions/setup-dotnet@4d6c8fcf3c8f7a60068d26b594648e99df24cee3 # v4.0.0
         with:
           dotnet-version: 6.0.x
 
-      - name: 🛠️ Setup NuGet cache
+      - name: 🗃️ Setup NuGet cache
         uses: actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84 # v3.3.2
         with:
           path: ~/.nuget/packages
-          key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj', '**/*.props') }}
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
           restore-keys: ${{ runner.os }}-nuget-
 
+      - name: 📥 Restore dependencies
+        run: dotnet restore --locked-mode
+
+      - name: 🏗️ Build
+        run: dotnet build --no-restore -c Release
+
       - name: 📦 Pack
-        run: dotnet pack /p:CI=true /p:PublicRelease=true -c Release
+        run: dotnet pack /p:CI=true /p:PublicRelease=true --no-build -c Release
 
       - name: 🚀 Publish
         run: dotnet nuget push "artifacts/*.nupkg" -s https://api.nuget.org/v3/index.json -k ${{ secrets.NUGET_APIKEY }} --skip-duplicate
