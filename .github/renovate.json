@@ -20,8 +20,5 @@
             "matchUpdateTypes": ["major"],
             "enabled": false
         }
-    ],
-    "schedule": [
-        "every days"
     ]
 }
