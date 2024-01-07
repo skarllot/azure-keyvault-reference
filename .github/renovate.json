@@ -5,12 +5,12 @@
     ],
     "reviewers": ["skarllot"],
     "prHourlyLimit": 0,
+    "semanticCommitType": "build",
     "labels": ["dependencies"],
     "packageRules": [
         {
-            "matchDatasources": ["nuget"],
-            "addLabels": [".NET"],
-            "semanticCommitType": "build"
+            "matchDatasources": ["nuget", "dotnet-version"],
+            "addLabels": [".NET"]
         },
         {
             "matchDatasources": ["github-actions"],
