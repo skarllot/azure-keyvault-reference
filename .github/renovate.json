@@ -1,0 +1,24 @@
+{
+    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+    "extends": [
+        "config:recommended"
+    ],
+    "reviewers": ["skarllot"],
+    "prHourlyLimit": 0,
+    "packageRules": [
+        {
+            "matchDatasources":["dotnet-version"],
+            "matchUpdateTypes":["major"],
+            "enabled": false
+        },
+        {
+            "description": "Packages which need major versions to be in sync with the .NET version",
+            "matchDatasources": ["nuget"],
+            "matchPackagePrefixes": [
+                "Microsoft.Extensions."
+            ],
+            "matchUpdateTypes": ["major"],
+            "enabled": false
+        }
+    ]
+}
