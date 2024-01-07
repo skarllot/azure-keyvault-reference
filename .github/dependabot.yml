@@ -7,6 +7,8 @@ version: 2
 updates:
   - package-ecosystem: "nuget"
     directory: "/"
+    reviewers:
+      - skarllot
     schedule:
       interval: "daily"
     groups:
@@ -22,5 +24,7 @@ updates:
         update-types: ["version-update:semver-major"]
   - package-ecosystem: "github-actions"
     directory: "/"
+    reviewers:
+      - skarllot
     schedule:
       interval: "daily"
