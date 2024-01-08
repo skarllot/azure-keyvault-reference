@@ -11,7 +11,8 @@
     "packageRules": [
         {
             "matchDatasources": ["nuget", "dotnet-version"],
-            "addLabels": [".NET"]
+            "addLabels": [".NET"],
+            "semanticCommitType": "build"
         },
         {
             "matchDatasources": ["github-actions"],
