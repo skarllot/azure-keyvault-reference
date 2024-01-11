@@ -1,37 +1,8 @@
 {
-    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-    "extends": [
-        "config:recommended"
-    ],
-    "reviewers": ["skarllot"],
-    "prHourlyLimit": 0,
-    "semanticCommits": "enabled",
-    "semanticCommitType": "build",
-    "labels": ["dependencies"],
-    "packageRules": [
-        {
-            "matchDatasources": ["nuget", "dotnet-version"],
-            "addLabels": [".NET"],
-            "semanticCommitType": "build"
-        },
-        {
-            "matchDatasources": ["github-actions"],
-            "addLabels": ["github_actions"],
-            "semanticCommitType": "ci"
-        },
-        {
-            "matchDatasources":["dotnet-version"],
-            "matchUpdateTypes":["major"],
-            "enabled": false
-        },
-        {
-            "description": "Packages which need major versions to be in sync with the .NET version",
-            "matchDatasources": ["nuget"],
-            "matchPackagePrefixes": [
-                "Microsoft.Extensions."
-            ],
-            "matchUpdateTypes": ["major"],
-            "enabled": false
-        }
-    ]
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "local>skarllot/renovate-config"
+  ],
+  "reviewers": ["skarllot"],
+  "assignees": ["skarllot"]
 }
