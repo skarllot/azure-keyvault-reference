@@ -18,7 +18,7 @@ internal static class ConsoleLoggerFactory
     {
         public StaticOptionsMonitor(T currentValue) => CurrentValue = currentValue;
 
-        public T Get(string name) => CurrentValue;
+        public T Get(string? name) => CurrentValue;
 
         public IDisposable OnChange(Action<T, string> listener) => new NullDisposable();
 

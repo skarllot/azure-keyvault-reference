@@ -66,7 +66,7 @@ public record KeyVaultSecretReference(Uri VaultUri, string Name, string? Version
     /// <returns>An instance of <see cref="KeyVaultSecretReference"/> equivalent to the value contained in <paramref name="value" />.</returns>
     public static KeyVaultSecretReference Parse(string value, string? defaultVaultNameOrUri)
     {
-#if NET6_0
+#if NET6_0_OR_GREATER
         ArgumentNullException.ThrowIfNull(value);
 #else
         if (value is null)

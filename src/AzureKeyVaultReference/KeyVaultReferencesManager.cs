@@ -32,7 +32,7 @@ public sealed class KeyVaultReferencesManager : IKeyVaultReferencesManager
 
     private SecretClient GetSecretClient(Uri vaultUri)
     {
-#if NET6_0
+#if NET6_0_OR_GREATER
         return _clients.GetOrAdd(
             vaultUri.ToString(),
             static (_, arg) => new SecretClient(arg.vaultUri, arg.credential),

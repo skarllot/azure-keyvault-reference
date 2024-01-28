@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using Azure;
 using Azure.Security.KeyVault.Secrets;
@@ -67,9 +68,10 @@ public partial class AzureKeyVaultReferenceBaseProvider : IDisposable
         IConfiguration configuration,
         [NotNullWhen(true)] out string? value)
     {
-        if (_memoryCache.TryGetValue(key, out object cacheValue))
+        if (_memoryCache.TryGetValue(key, out object? cacheValue))
         {
-            value = (string)cacheValue;
+            Debug.Assert(cacheValue is not null, $"Cached null value for {key}");
+            value = (string)cacheValue!;
             return true;
         }
 

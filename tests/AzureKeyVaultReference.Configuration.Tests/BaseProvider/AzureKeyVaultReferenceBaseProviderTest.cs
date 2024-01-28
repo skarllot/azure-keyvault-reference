@@ -8,7 +8,7 @@ namespace Raiqub.AzureKeyVaultReference.Configuration.Tests.BaseProvider;
 
 public abstract class AzureKeyVaultReferenceBaseProviderTest : IDisposable
 {
-    private static readonly Dictionary<string, string> s_configurationData = new(StringComparer.OrdinalIgnoreCase)
+    private static readonly Dictionary<string, string?> s_configurationData = new(StringComparer.OrdinalIgnoreCase)
     {
         { "Key1", "Value1" },
         { "Key2", "@Microsoft.KeyVault(VaultName=sampleVault;SecretName=mysecret;)" },
@@ -30,14 +30,14 @@ public abstract class AzureKeyVaultReferenceBaseProviderTest : IDisposable
         builder(_configurationManager, new AzureKeyVaultReferenceOptions(), _keyVaultManager);
     }
 
-    protected static IReadOnlyDictionary<string, string> ConfigurationData => s_configurationData;
+    protected static IReadOnlyDictionary<string, string?> ConfigurationData => s_configurationData;
 
     [Fact]
     public void GivenKeyWhenValueIsNotKeyVaultReferenceThenReturnsOriginalValue()
     {
-        string response1 = _configurationManager["Key1"];
-        string response2 = _configurationManager["Key1"];
-        string response3 = _configurationManager["Key1"];
+        string? response1 = _configurationManager["Key1"];
+        string? response2 = _configurationManager["Key1"];
+        string? response3 = _configurationManager["Key1"];
 
         response1.Should().Be("Value1");
         response2.Should().Be("Value1");
@@ -53,9 +53,9 @@ public abstract class AzureKeyVaultReferenceBaseProviderTest : IDisposable
             .GetSecretValue(Arg.Is<KeyVaultSecretReference>(k => k.Name == "mysecret"))
             .Returns(Response.FromValue(new KeyVaultSecret("mysecret", "value2"), Substitute.For<Response>()));
 
-        string response1 = _configurationManager["Key2"];
-        string response2 = _configurationManager["Key2"];
-        string response3 = _configurationManager["Key2"];
+        string? response1 = _configurationManager["Key2"];
+        string? response2 = _configurationManager["Key2"];
+        string? response3 = _configurationManager["Key2"];
 
         response1.Should().Be("value2");
         response2.Should().Be("value2");
@@ -71,9 +71,9 @@ public abstract class AzureKeyVaultReferenceBaseProviderTest : IDisposable
             .When(m => m.GetSecretValue(Arg.Is<KeyVaultSecretReference>(k => k.Name == "mysecret")))
             .Do(_ => throw new RequestFailedException("Failed"));
 
-        string response1 = _configurationManager["Key2"];
-        string response2 = _configurationManager["Key2"];
-        string response3 = _configurationManager["Key2"];
+        string? response1 = _configurationManager["Key2"];
+        string? response2 = _configurationManager["Key2"];
+        string? response3 = _configurationManager["Key2"];
 
         response1.Should().Be(s_configurationData["Key2"]);
         response2.Should().Be(s_configurationData["Key2"]);
@@ -92,12 +92,12 @@ public abstract class AzureKeyVaultReferenceBaseProviderTest : IDisposable
             .GetSecretValue(Arg.Is<KeyVaultSecretReference>(k => k.Name == "other"))
             .Returns(Response.FromValue(new KeyVaultSecret("other", "othervalue"), Substitute.For<Response>()));
 
-        string response1 = _configurationManager["Key2"];
+        string? response1 = _configurationManager["Key2"];
 
         _configurationManager["Key2"] = "@Microsoft.KeyVault(VaultName=sampleVault;SecretName=other;)";
 
-        string response2 = _configurationManager["Key2"];
-        string response3 = _configurationManager["Key2"];
+        string? response2 = _configurationManager["Key2"];
+        string? response3 = _configurationManager["Key2"];
 
         response1.Should().Be("value2");
         response2.Should().Be("othervalue");
@@ -115,9 +115,9 @@ public abstract class AzureKeyVaultReferenceBaseProviderTest : IDisposable
 
         _configurationManager["Key2"] = "@Microsoft.KeyVault(VaultName=sampleVault;SecretName=other;)";
 
-        string response1 = _configurationManager["Key2"];
-        string response2 = _configurationManager["Key2"];
-        string response3 = _configurationManager["Key2"];
+        string? response1 = _configurationManager["Key2"];
+        string? response2 = _configurationManager["Key2"];
+        string? response3 = _configurationManager["Key2"];
 
         response1.Should().Be("othervalue");
         response2.Should().Be("othervalue");
