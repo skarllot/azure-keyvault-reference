@@ -5,6 +5,7 @@
   <PropertyGroup>
     <EnablePackageValidation>true</EnablePackageValidation>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIcon>icon.png</PackageIcon>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PackageReleaseNotes>See https://github.com/skarllot/azure-keyvault-reference/releases for release notes.</PackageReleaseNotes>
   </PropertyGroup>
