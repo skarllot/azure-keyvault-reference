@@ -1,4 +1,3 @@
-using System.Diagnostics.CodeAnalysis;
 using Azure;
 using Azure.Security.KeyVault.Secrets;
 using Microsoft.Extensions.Caching.Memory;
@@ -65,11 +64,11 @@ public partial class AzureKeyVaultReferenceBaseProvider : IDisposable
     protected bool TryGetInternal(
         string key,
         IConfiguration configuration,
-        [NotNullWhen(true)] out string? value)
+        out string? value)
     {
-        if (_memoryCache.TryGetValue(key, out object cacheValue))
+        if (_memoryCache.TryGetValue(key, out object? cacheValue))
         {
-            value = (string)cacheValue;
+            value = (string?)cacheValue;
             return true;
         }
 
@@ -97,7 +96,7 @@ public partial class AzureKeyVaultReferenceBaseProvider : IDisposable
             .OrderBy(static x => x, ConfigurationKeyComparer.Instance);
     }
 
-    private void SetCache(string key, string value)
+    private void SetCache(string key, string? value)
     {
         using var entry = _memoryCache.CreateEntry(key);
         entry.Size = 1L;
