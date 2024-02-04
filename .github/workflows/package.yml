@@ -2,8 +2,7 @@ name: Package
 
 on:
   release:
-    types: [published]
-  workflow_dispatch:
+    types: [published,edited]
 
 env:
   DOTNET_GENERATE_ASPNET_CERTIFICATE: false
