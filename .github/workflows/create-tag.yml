@@ -13,6 +13,7 @@ permissions:
 
 jobs:
   create-tag:
+    if: github.actor == 'skarllot'
     runs-on: ubuntu-latest
     permissions:
       contents: write
