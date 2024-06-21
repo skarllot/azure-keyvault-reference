@@ -22,8 +22,8 @@
       },
       "Azure.Core": {
         "type": "Transitive",
-        "resolved": "1.38.0",
-        "contentHash": "IuEgCoVA0ef7E4pQtpC3+TkPbzaoQfa77HlfJDmfuaJUCVJmn7fT0izamZiryW5sYUFKizsftIxMkXKbgIcPMQ==",
+        "resolved": "1.40.0",
+        "contentHash": "eOx6wk3kQ3SCnoAj7IytAu/d99l07PdarmUc+RmMkVOTkcQ3s+UQEaGzMyEqC2Ua4SKnOW4Xw/klLeB5V2PiSA==",
         "dependencies": {
           "Microsoft.Bcl.AsyncInterfaces": "1.1.1",
           "System.ClientModel": "1.0.0",
@@ -37,10 +37,10 @@
       },
       "Azure.Identity": {
         "type": "Transitive",
-        "resolved": "1.11.4",
-        "contentHash": "Sf4BoE6Q3jTgFkgBkx7qztYOFELBCo+wQgpYDwal/qJ1unBH73ywPztIJKXBXORRzAeNijsuxhk94h0TIMvfYg==",
+        "resolved": "1.12.0",
+        "contentHash": "OBIM3aPz8n9oEO5fdnee+Vsc5Nl4W3FeslPpESyDiyByntQI5BAa76KD60eFXm9ulevnwxGZP9YXL8Y+paI5Uw==",
         "dependencies": {
-          "Azure.Core": "1.38.0",
+          "Azure.Core": "1.40.0",
           "Microsoft.Identity.Client": "4.61.3",
           "Microsoft.Identity.Client.Extensions.Msal": "4.61.3",
           "System.Memory": "4.5.4",
@@ -487,7 +487,7 @@
       "Raiqub.AzureKeyVaultReference": {
         "type": "Project",
         "dependencies": {
-          "Azure.Identity": "[1.11.4, )",
+          "Azure.Identity": "[1.12.0, )",
           "Azure.Security.KeyVault.Secrets": "[4.6.0, )"
         }
       },
