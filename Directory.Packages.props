@@ -16,7 +16,7 @@
     <PackageVersion Include="Nerdbank.GitVersioning" Version="3.6.143" />
     <PackageVersion Include="NSubstitute" Version="5.1.0" />
     <PackageVersion Include="Swashbuckle.AspNetCore" Version="6.7.3" />
-    <PackageVersion Include="xunit" Version="2.9.0" />
+    <PackageVersion Include="xunit" Version="2.9.1" />
     <PackageVersion Include="xunit.runner.visualstudio" Version="2.8.2" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
