@@ -18,8 +18,8 @@ _The Raiqub Azure Key Vault Reference NuGet packages simplifies the integration 
 * Support for parsing Azure Key Vault references from strings
 
 ## NuGet Packages
-* [![NuGet](https://buildstats.info/nuget/Raiqub.AzureKeyVaultReference)](https://www.nuget.org/packages/Raiqub.AzureKeyVaultReference/) **Raiqub.AzureKeyVaultReference**: provides support for parsing Azure Key Vault references
-* [![NuGet](https://buildstats.info/nuget/Raiqub.AzureKeyVaultReference.Configuration)](https://www.nuget.org/packages/Raiqub.AzureKeyVaultReference.Configuration/) **Raiqub.AzureKeyVaultReference.Configuration**: provides support for integrating Azure Key Vault references with `IConfiguration`
+* [![NuGet](https://img.shields.io/nuget/v/Raiqub.AzureKeyVaultReference?label=&logo=nuget&style=flat-square)![NuGet](https://img.shields.io/nuget/dt/Raiqub.AzureKeyVaultReference?label=&style=flat-square)](https://www.nuget.org/packages/Raiqub.AzureKeyVaultReference/) **Raiqub.AzureKeyVaultReference**: provides support for parsing Azure Key Vault references
+* [![NuGet](https://img.shields.io/nuget/v/Raiqub.AzureKeyVaultReference.Configuration?label=&logo=nuget&style=flat-square)![NuGet](https://img.shields.io/nuget/dt/Raiqub.AzureKeyVaultReference.Configuration?label=&style=flat-square)](https://www.nuget.org/packages/Raiqub.AzureKeyVaultReference.Configuration/) **Raiqub.AzureKeyVaultReference.Configuration**: provides support for integrating Azure Key Vault references with `IConfiguration`
 
 ## Prerequisites
 Before you begin, you'll need the following:
