@@ -37,6 +37,7 @@ jobs:
             dashboard.stryker-mutator.io:443
             dotnetcli.azureedge.net:443
             github.com:443
+            myvault.vault.azure.net:443
 
       - name: 🛒 Checkout
         uses: actions/checkout@eef61447b9ff4aafe5dcd4e0bbf5d482be7e7871 # v4.2.1
