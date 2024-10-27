@@ -4,11 +4,20 @@ using Raiqub.AzureKeyVaultReference.Configuration.BaseProvider;
 
 namespace Raiqub.AzureKeyVaultReference.Configuration.ProxyProvider;
 
+/// <summary>
+/// A configuration provider that proxies an <see cref="IConfigurationRoot"/> to resolve Azure Key Vault references.
+/// </summary>
 public sealed class AzureKeyVaultReferenceProxyProvider : AzureKeyVaultReferenceBaseProvider, IConfigurationProvider
 {
     private readonly IConfigurationRoot _configuration;
     private readonly ConfigurationReloadToken _reloadToken = new();
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="AzureKeyVaultReferenceProxyProvider"/> class.
+    /// </summary>
+    /// <param name="configuration">The <see cref="IConfigurationRoot"/> to proxy.</param>
+    /// <param name="options">Options for configuring the Azure Key Vault reference provider.</param>
+    /// <param name="keyVaultReferencesManager">Manager for resolving Azure Key Vault references.</param>
     public AzureKeyVaultReferenceProxyProvider(
         IConfigurationRoot configuration,
         AzureKeyVaultReferenceOptions options,

@@ -82,9 +82,9 @@ using Raiqub.AzureKeyVaultReference;
 var reference = "@Microsoft.KeyVault(SecretUri=https://your-keyvault.vault.azure.net/secrets/MySecret)";
 
 var parsedReference = KeyVaultSecretReference.Parse(reference);
-// ParsedReference.VaultUri: "https://your-keyvault.vault.azure.net"
-// ParsedReference.Name: "MySecret"
-// ParsedReference.Version: null
+// parsedReference.VaultUri: "https://your-keyvault.vault.azure.net"
+// parsedReference.Name: "MySecret"
+// parsedReference.Version: null
 ```
 
 ### Default Azure Key Vault

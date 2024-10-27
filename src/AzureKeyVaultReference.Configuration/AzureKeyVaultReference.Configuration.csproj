@@ -19,12 +19,10 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.1'">
-    <PackageReference Include="Microsoft.VisualStudio.Validation" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
-    <PackageReference Include="Microsoft.VisualStudio.Validation" />
-    <PackageReference Include="Nullable" />
+    <PackageReference Include="Nullable" PrivateAssets="all" />
   </ItemGroup>
 
 </Project>

@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging.Console;
 namespace Raiqub.AzureKeyVaultReference.Configuration;
 
 /// <summary>
-/// Options class used by the <see cref="AzureKeyVaultReferenceExtensions"/>.
+/// Options for configuring the Azure Key Vault reference provider.
 /// </summary>
 public class AzureKeyVaultReferenceOptions
 {

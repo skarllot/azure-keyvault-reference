@@ -4,6 +4,9 @@ using Raiqub.AzureKeyVaultReference.Configuration.BaseProvider;
 
 namespace Raiqub.AzureKeyVaultReference.Configuration.RecursiveProvider;
 
+/// <summary>
+/// Represents a configuration provider that recursively resolves Key Vault references in the configuration.
+/// </summary>
 public sealed class AzureKeyVaultReferenceRecursiveProvider
     : AzureKeyVaultReferenceBaseProvider, IConfigurationProvider
 {
@@ -12,6 +15,13 @@ public sealed class AzureKeyVaultReferenceRecursiveProvider
     private readonly ConfigurationReloadToken _reloadToken = new();
     private bool _isLocked;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="AzureKeyVaultReferenceRecursiveProvider"/> class with the
+    /// specified configuration, options, and Key Vault references manager.
+    /// </summary>
+    /// <param name="configuration">The root configuration object.</param>
+    /// <param name="options">The configuration options for the provider.</param>
+    /// <param name="keyVaultReferencesManager">The manager responsible for handling Key Vault references.</param>
     public AzureKeyVaultReferenceRecursiveProvider(
         IConfigurationRoot configuration,
         AzureKeyVaultReferenceOptions options,

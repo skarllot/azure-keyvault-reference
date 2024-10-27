@@ -51,12 +51,6 @@
           "Microsoft.Extensions.Logging.Configuration": "2.2.0"
         }
       },
-      "Microsoft.VisualStudio.Validation": {
-        "type": "Direct",
-        "requested": "[17.8.8, )",
-        "resolved": "17.8.8",
-        "contentHash": "rWXThIpyQd4YIXghNkiv2+VLvzS+MCMKVRDR0GAMlflsdo+YcAN2g2r5U1Ah98OFjQMRexTFtXQQ2LkajxZi3g=="
-      },
       "Nerdbank.GitVersioning": {
         "type": "Direct",
         "requested": "[3.6.143, )",
@@ -435,12 +429,6 @@
           "Microsoft.Extensions.Logging": "3.1.32",
           "Microsoft.Extensions.Logging.Configuration": "3.1.32"
         }
-      },
-      "Microsoft.VisualStudio.Validation": {
-        "type": "Direct",
-        "requested": "[17.8.8, )",
-        "resolved": "17.8.8",
-        "contentHash": "rWXThIpyQd4YIXghNkiv2+VLvzS+MCMKVRDR0GAMlflsdo+YcAN2g2r5U1Ah98OFjQMRexTFtXQQ2LkajxZi3g=="
       },
       "Nerdbank.GitVersioning": {
         "type": "Direct",
