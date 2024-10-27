@@ -8,6 +8,9 @@ using Raiqub.AzureKeyVaultReference.Configuration.Factories;
 
 namespace Raiqub.AzureKeyVaultReference.Configuration.BaseProvider;
 
+/// <summary>
+/// Base provider for handling Azure Key Vault references within a configuration.
+/// </summary>
 public partial class AzureKeyVaultReferenceBaseProvider : IDisposable
 {
     private readonly TimeSpan _cacheRetentionTime;
@@ -18,6 +21,11 @@ public partial class AzureKeyVaultReferenceBaseProvider : IDisposable
     private readonly string? _defaultVaultNameOrUri;
     private MemoryConfigurationProvider? _addedValues;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="AzureKeyVaultReferenceBaseProvider"/> class.
+    /// </summary>
+    /// <param name="options">Options for configuring the Azure Key Vault reference provider.</param>
+    /// <param name="keyVaultReferencesManager">Manager for resolving Azure Key Vault references.</param>
     protected AzureKeyVaultReferenceBaseProvider(
         AzureKeyVaultReferenceOptions options,
         IKeyVaultReferencesManager keyVaultReferencesManager)
@@ -37,6 +45,10 @@ public partial class AzureKeyVaultReferenceBaseProvider : IDisposable
         GC.SuppressFinalize(this);
     }
 
+    /// <summary>
+    /// Releases the unmanaged and optionally the managed resources used by the <see cref="AzureKeyVaultReferenceBaseProvider"/> object.
+    /// </summary>
+    /// <param name="disposing">True to release both managed and unmanaged resources; false to release only unmanaged resources.</param>
     protected virtual void Dispose(bool disposing)
     {
         if (disposing)
@@ -47,6 +59,11 @@ public partial class AzureKeyVaultReferenceBaseProvider : IDisposable
         }
     }
 
+    /// <summary>
+    /// Retrieves the immediate descendant configuration keys for a given parent path.
+    /// </summary>
+    /// <param name="parentPath">The parent path.</param>
+    /// <returns>The child keys.</returns>
     protected IEnumerable<string> GetMemoryChildKeys(string? parentPath)
     {
         return _addedValues is not null
@@ -54,6 +71,11 @@ public partial class AzureKeyVaultReferenceBaseProvider : IDisposable
             : Enumerable.Empty<string>();
     }
 
+    /// <summary>
+    /// Sets a configuration value for the specified key.
+    /// </summary>
+    /// <param name="key">The key to set.</param>
+    /// <param name="value">The value to set.</param>
     protected void SetMemoryValue(string key, string? value)
     {
         _addedValues ??= new MemoryConfigurationProvider(new MemoryConfigurationSource());
@@ -61,6 +83,13 @@ public partial class AzureKeyVaultReferenceBaseProvider : IDisposable
         _memoryCache.Remove(key);
     }
 
+    /// <summary>
+    /// Attempts to get the value for a specified key.
+    /// </summary>
+    /// <param name="key">The key to retrieve.</param>
+    /// <param name="configuration">The configuration to query.</param>
+    /// <param name="value">The value corresponding to the key, if found.</param>
+    /// <returns>True if the key was found and its value retrieved; otherwise, false.</returns>
     protected bool TryGetInternal(
         string key,
         IConfiguration configuration,
@@ -80,6 +109,13 @@ public partial class AzureKeyVaultReferenceBaseProvider : IDisposable
         return value is not null;
     }
 
+    /// <summary>
+    /// Retrieves the immediate descendant configuration keys for a given parent path.
+    /// </summary>
+    /// <param name="configuration">The configuration to query.</param>
+    /// <param name="earlierKeys">The child keys returned by the preceding providers for the same parent path.</param>
+    /// <param name="parentPath">The parent path.</param>
+    /// <returns>The child keys.</returns>
     protected IEnumerable<string> GetChildKeysInternal(
         IConfiguration configuration,
         IEnumerable<string> earlierKeys,

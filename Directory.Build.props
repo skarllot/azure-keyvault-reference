@@ -15,6 +15,9 @@
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
     <AnalysisMode>Recommended</AnalysisMode>
     <NoWarn>$(NoWarn);CS1591</NoWarn>
+    <NuGetAuditMode>all</NuGetAuditMode>
+    <NuGetAuditLevel>low</NuGetAuditLevel>
+    <NuGetAudit>true</NuGetAudit>
   </PropertyGroup>
 
   <PropertyGroup>
