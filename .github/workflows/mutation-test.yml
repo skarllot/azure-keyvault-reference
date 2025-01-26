@@ -32,12 +32,16 @@ jobs:
           disable-sudo: true
           egress-policy: block
           allowed-endpoints: >
+            *.azureedge.net:443
             aka.ms:443
-            api.nuget.org:443
-            dashboard.stryker-mutator.io:443
-            dotnetcli.azureedge.net:443
             github.com:443
+            api.nuget.org:443
+            builds.dotnet.microsoft.com:443
+            ci.dot.net:443
+            dashboard.stryker-mutator.io:443
+            dc.services.visualstudio.com:443
             myvault.vault.azure.net:443
+            raw.githubusercontent.com:443
 
       - name: 🛒 Checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
