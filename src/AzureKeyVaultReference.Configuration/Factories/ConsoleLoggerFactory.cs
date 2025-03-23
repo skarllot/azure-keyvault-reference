@@ -12,7 +12,7 @@ internal static class ConsoleLoggerFactory
         var loggerProvider =
             new ConsoleLoggerProvider(new StaticOptionsMonitor<ConsoleLoggerOptions>(options.LoggerOptions));
 
-        return new LoggerFactory(new[] { loggerProvider });
+        return new LoggerFactory([loggerProvider]);
     }
 
     private sealed class StaticOptionsMonitor<

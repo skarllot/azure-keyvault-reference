@@ -67,8 +67,8 @@ public partial class AzureKeyVaultReferenceBaseProvider : IDisposable
     protected IEnumerable<string> GetMemoryChildKeys(string? parentPath)
     {
         return _addedValues is not null
-            ? _addedValues.GetChildKeys(Enumerable.Empty<string>(), parentPath)
-            : Enumerable.Empty<string>();
+            ? _addedValues.GetChildKeys([], parentPath)
+            : [];
     }
 
     /// <summary>

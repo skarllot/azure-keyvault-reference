@@ -34,11 +34,10 @@ public class BenchmarkConfig : ManualConfig
         var result = job
             .WithId(pkgVersion ?? "dev")
             .WithArguments(
-                new[]
-                {
-                    new MsBuildArgument("/p:BenchmarkFromNuGet=" + (pkgVersion is null ? "false" : "true")),
+            [
+                new MsBuildArgument("/p:BenchmarkFromNuGet=" + (pkgVersion is null ? "false" : "true")),
                     new MsBuildArgument("/p:SignAssembly=false"),
-                });
+            ]);
 
         if (pkgVersion is not null)
         {
