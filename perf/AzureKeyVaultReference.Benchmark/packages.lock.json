@@ -457,11 +457,20 @@
       "Raiqub.AzureKeyVaultReference.Tests": {
         "type": "Project",
         "dependencies": {
-          "FluentAssertions": "[7.0.0, )",
+          "AwesomeAssertions": "[7.0.0, )",
           "Microsoft.NET.Test.Sdk": "[17.13.0, )",
           "NSubstitute": "[5.3.0, )",
           "Raiqub.AzureKeyVaultReference": "[1.0.0, )",
           "xunit": "[2.9.3, )"
+        }
+      },
+      "AwesomeAssertions": {
+        "type": "CentralTransitive",
+        "requested": "[7.0.0, )",
+        "resolved": "7.0.0",
+        "contentHash": "/jKSCFl+hHMfczZ/u4UZP3G3HHZ8slCtkNneB+/WheYrbWMfT8QzO/HiWYg0PVU87VqS0/gK41eW05hofjQ3PA==",
+        "dependencies": {
+          "System.Configuration.ConfigurationManager": "6.0.0"
         }
       },
       "Azure.Identity": {
@@ -487,15 +496,6 @@
           "System.Memory": "4.5.5",
           "System.Text.Json": "6.0.10",
           "System.Threading.Tasks.Extensions": "4.5.4"
-        }
-      },
-      "FluentAssertions": {
-        "type": "CentralTransitive",
-        "requested": "[7.0.0, )",
-        "resolved": "7.0.0",
-        "contentHash": "mTLbcU991EQ1SEmNbVBaGGGJy0YFzvGd1sYJGNZ07nlPKuyHSn1I22aeKzqQXgEiaKyRO6MSCto9eN9VxMwBdA==",
-        "dependencies": {
-          "System.Configuration.ConfigurationManager": "6.0.0"
         }
       },
       "Microsoft.Extensions.Configuration": {
