@@ -8,7 +8,7 @@
     <IsTestProject Condition="$(MSBuildProjectName.EndsWith('Tests'))">true</IsTestProject>
     <PackageOutputPath>$(SolutionDir)artifacts</PackageOutputPath>
     <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
-    <LangVersion>12</LangVersion>
+    <LangVersion>13</LangVersion>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
