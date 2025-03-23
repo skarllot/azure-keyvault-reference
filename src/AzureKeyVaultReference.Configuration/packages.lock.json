@@ -1130,6 +1130,12 @@
           "Microsoft.Extensions.Options": "8.0.2"
         }
       },
+      "Microsoft.NET.ILLink.Tasks": {
+        "type": "Direct",
+        "requested": "[8.0.14, )",
+        "resolved": "8.0.14",
+        "contentHash": "4U2fd7PexNKrK5ZqfqIcXZj9/lRRjFsLgA/pxuFQTuGQuLYP/+7yACz/j7EmWbEj/fspOf4mafi/vHIy/rKDzQ=="
+      },
       "Nerdbank.GitVersioning": {
         "type": "Direct",
         "requested": "[3.7.115, )",
