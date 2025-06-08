@@ -5,7 +5,7 @@
     <CentralPackageVersionOverrideEnabled>false</CentralPackageVersionOverrideEnabled>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="AwesomeAssertions" Version="7.2.1" />
+    <PackageVersion Include="AwesomeAssertions" Version="9.0.0" />
     <PackageVersion Include="Azure.Identity" Version="1.14.0" />
     <PackageVersion Include="Azure.Security.KeyVault.Secrets" Version="4.7.0" />
     <PackageVersion Include="BenchmarkDotNet" Version="0.15.0" />
