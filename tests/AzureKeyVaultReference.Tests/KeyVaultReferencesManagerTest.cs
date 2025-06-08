@@ -1,6 +1,6 @@
+using AwesomeAssertions;
 using Azure;
 using Azure.Core;
-using FluentAssertions;
 using NSubstitute;
 
 namespace Raiqub.AzureKeyVaultReference.Tests;
