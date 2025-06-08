@@ -1,6 +1,6 @@
+using AwesomeAssertions;
 using Azure;
 using Azure.Security.KeyVault.Secrets;
-using FluentAssertions;
 using Microsoft.Extensions.Configuration;
 using NSubstitute;
 
