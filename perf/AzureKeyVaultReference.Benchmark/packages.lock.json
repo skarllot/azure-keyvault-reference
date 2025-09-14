@@ -381,7 +381,7 @@
       "Raiqub.AzureKeyVaultReference.Tests": {
         "type": "Project",
         "dependencies": {
-          "AwesomeAssertions": "[9.0.0, )",
+          "AwesomeAssertions": "[9.1.0, )",
           "Microsoft.NET.Test.Sdk": "[17.13.0, )",
           "NSubstitute": "[5.3.0, )",
           "Raiqub.AzureKeyVaultReference": "[1.0.0, )",
@@ -390,9 +390,9 @@
       },
       "AwesomeAssertions": {
         "type": "CentralTransitive",
-        "requested": "[9.0.0, )",
-        "resolved": "9.0.0",
-        "contentHash": "7HpVy5wMgzBX9vmelhDdM6EshiaGuz8apnhPcWGAkrbc7rlgmtzEDNcUiTNIicTkurBY37JZYdDiNMWrnKdADA=="
+        "requested": "[9.1.0, )",
+        "resolved": "9.1.0",
+        "contentHash": "EEXt/qvPP8sAMVIiUNOf2wHlMw9f8xckgM8sU791TSWUy7crn3rF14TkHfG8hNnQOQdq+83rX8Y5pNsZ/L06DQ=="
       },
       "Azure.Identity": {
         "type": "CentralTransitive",
