@@ -8,42 +8,35 @@ namespace AzureKeyVaultReference.Benchmark;
 
 public class BenchmarkConfig : ManualConfig
 {
-    private readonly IConfig defaultConfig = DefaultConfig.Instance;
+    private readonly IConfig _defaultConfig = DefaultConfig.Instance;
 
     public BenchmarkConfig()
     {
         AddColumnProvider(DefaultColumnProviders.Instance)
             .AddExporter(MarkdownExporter.GitHub)
             .AddLogger(ConsoleLogger.Default)
-            .AddAnalyser(defaultConfig.GetAnalysers().ToArray())
-            .AddValidator(defaultConfig.GetValidators().ToArray())
-            .WithSummaryStyle(defaultConfig.SummaryStyle)
+            .AddAnalyser(_defaultConfig.GetAnalysers().ToArray())
+            .AddValidator(_defaultConfig.GetValidators().ToArray())
+            .WithSummaryStyle(_defaultConfig.SummaryStyle)
             .WithOption(ConfigOptions.DisableLogFile, true)
             .WithArtifactsPath(Path.Combine(RuntimeContext.SolutionDirectory, "docs", "benchmarks"));
 
         var job = Job.MediumRun;
 
-        AddJob(CustomJob(job, "2.0.4").AsBaseline());
-        AddJob(CustomJob(job, null));
+        AddJob(CustomJob(job, benchmarkFromNuget: true).AsBaseline());
+        AddJob(CustomJob(job, benchmarkFromNuget: false));
 
         HideColumns(Column.Arguments, Column.NuGetReferences);
     }
 
-    private static Job CustomJob(Job job, string? pkgVersion)
+    private static Job CustomJob(Job job, bool benchmarkFromNuget)
     {
-        var result = job
-            .WithId(pkgVersion ?? "dev")
+        return job
+            .WithId(benchmarkFromNuget ? "2.0.4" : "dev")
             .WithArguments(
             [
-                new MsBuildArgument("/p:BenchmarkFromNuGet=" + (pkgVersion is null ? "false" : "true")),
-                    new MsBuildArgument("/p:SignAssembly=false"),
+                new MsBuildArgument("/p:BenchmarkFromNuGet=" + (benchmarkFromNuget ? "true" : "false")),
+                new MsBuildArgument("/p:SignAssembly=false"),
             ]);
-
-        if (pkgVersion is not null)
-        {
-            result = result.WithNuGet("Raiqub.AzureKeyVaultReference", pkgVersion);
-        }
-
-        return result;
     }
 }

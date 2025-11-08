@@ -8,11 +8,15 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="BenchmarkDotNet" />
+      <PackageReference Include="BenchmarkDotNet" Version="0.15.6" />
     </ItemGroup>
 
     <ItemGroup Condition=" '$(BenchmarkFromNuGet)' != 'true' ">
       <ProjectReference Include="..\..\tests\AzureKeyVaultReference.Tests\AzureKeyVaultReference.Tests.csproj" />
     </ItemGroup>
+
+  <ItemGroup Condition=" '$(BenchmarkFromNuGet)' == 'true' ">
+    <PackageReference Include="Raiqub.AzureKeyVaultReference" Version="2.0.4" />
+  </ItemGroup>
 
 </Project>
