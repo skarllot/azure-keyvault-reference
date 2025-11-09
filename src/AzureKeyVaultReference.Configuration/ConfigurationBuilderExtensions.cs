@@ -17,6 +17,7 @@ internal static class ConfigurationBuilderExtensions
             newBuilder.Sources.Add(source);
         }
 
+        builder.Properties.Clear();
         builder.Sources.Clear();
         return newBuilder.Build();
     }

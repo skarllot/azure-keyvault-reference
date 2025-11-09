@@ -134,7 +134,7 @@ public class ConfigurationBuilderExtensionsTest
     }
 
     [Fact]
-    public void MoveSourcesToNewConfiguration_ShouldNotClearOriginalBuilderProperties()
+    public void MoveSourcesToNewConfiguration_ShouldClearOriginalBuilderProperties()
     {
         // Arrange
         var builder = new ConfigurationBuilder();
@@ -152,8 +152,7 @@ public class ConfigurationBuilderExtensionsTest
         builder.MoveSourcesToNewConfiguration();
 
         // Assert
-        builder.Properties.Should().ContainKey("TestProperty", "because properties should not be cleared");
-        builder.Properties["TestProperty"].Should().Be("TestValue");
+        builder.Properties.Should().BeEmpty();
     }
 
     [Fact]
