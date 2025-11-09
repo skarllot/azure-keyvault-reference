@@ -1,4 +1,4 @@
-﻿<Project>
+<Project>
 
   <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" />
 
@@ -8,5 +8,9 @@
     <RootNamespace>$(MSBuildProjectName)</RootNamespace>
     <EnableNETAnalyzers>false</EnableNETAnalyzers>
   </PropertyGroup>
+
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage" />
+  </ItemGroup>
 
 </Project>

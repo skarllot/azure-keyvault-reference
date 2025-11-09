@@ -89,7 +89,7 @@ public static class KeyVaultReferenceParser
             result = ParseVaultReference(referenceString, defaultVaultNameOrUri);
             return result is not null;
         }
-        catch
+        catch (Exception e) when (e is ArgumentException or UriFormatException)
         {
             result = null;
             return false;
@@ -101,12 +101,12 @@ public static class KeyVaultReferenceParser
         string? secretUriString = s_secretUriRegex.MatchAndGetGroupValue(vaultReference, "Value");
         if (!string.IsNullOrEmpty(secretUriString))
         {
-            if (Uri.TryCreate(secretUriString, UriKind.Absolute, out Uri? secretUri) is false)
+            if (!Uri.TryCreate(secretUriString, UriKind.Absolute, out Uri? secretUri))
             {
                 return null;
             }
 
-            if (KeyVaultSecretIdentifier.TryCreate(secretUri, out KeyVaultSecretIdentifier secretIdentifier) is false)
+            if (!KeyVaultSecretIdentifier.TryCreate(secretUri, out KeyVaultSecretIdentifier secretIdentifier))
             {
                 return null;
             }
@@ -122,7 +122,7 @@ public static class KeyVaultReferenceParser
         string? version = s_secretVersionRegex.MatchAndGetGroupValue(vaultReference, "Value");
         Uri? vaultUri = ResolveVaultUri(vaultName, defaultVaultNameOrUri);
 
-        if (vaultUri is not null && !string.IsNullOrEmpty(secretName))
+        if (vaultUri is not null && !string.IsNullOrWhiteSpace(secretName))
         {
             return new KeyVaultSecretReference(
                 VaultUri: vaultUri,
@@ -135,12 +135,12 @@ public static class KeyVaultReferenceParser
 
     private static Uri? ResolveVaultUri(string? vaultName, string? defaultVaultNameOrUri)
     {
-        if (!string.IsNullOrEmpty(vaultName))
+        if (!string.IsNullOrWhiteSpace(vaultName))
         {
             return new Uri($"https://{vaultName}.{VaultUriSuffix}");
         }
 
-        if (string.IsNullOrEmpty(defaultVaultNameOrUri))
+        if (string.IsNullOrWhiteSpace(defaultVaultNameOrUri))
         {
             return null;
         }

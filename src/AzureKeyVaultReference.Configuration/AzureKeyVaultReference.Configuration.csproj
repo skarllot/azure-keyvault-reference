@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <InternalsVisibleTo Include="Raiqub.AzureKeyVaultReference.Configuration.Tests" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\AzureKeyVaultReference\AzureKeyVaultReference.csproj" />
   </ItemGroup>
 
