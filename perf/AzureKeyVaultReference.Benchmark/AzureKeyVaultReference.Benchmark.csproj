@@ -16,7 +16,7 @@
     </ItemGroup>
 
   <ItemGroup Condition=" '$(BenchmarkFromNuGet)' == 'true' ">
-    <PackageReference Include="Raiqub.AzureKeyVaultReference" Version="2.0.4" />
+    <PackageReference Include="Raiqub.AzureKeyVaultReference" Version="2.3.8" />
   </ItemGroup>
 
 </Project>
