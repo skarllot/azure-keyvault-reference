@@ -31,11 +31,11 @@
       },
       "IndexRange": {
         "type": "Direct",
-        "requested": "[1.1.0, )",
-        "resolved": "1.1.0",
-        "contentHash": "fG+2WP1e3Fg3ZVq85XAdiwG9t0twi3r0LvOrTjtbH/31Rd5gLnV5APOD2JHAowbZYDgj9D3rXRbUvIL+ew0WZQ==",
+        "requested": "[1.1.1, )",
+        "resolved": "1.1.1",
+        "contentHash": "nTESnAJi+itrCESxerrN33q8JYUIRueRzMSM6ogUbds88YyhOGd38DXLkCMjDoBlYn13DmB+AYKMA+ETEz/4EQ==",
         "dependencies": {
-          "Microsoft.Bcl.Memory": "9.0.0"
+          "Microsoft.Bcl.Memory": "9.0.14"
         }
       },
       "IsExternalInit": {
@@ -90,8 +90,8 @@
       },
       "Microsoft.Bcl.Memory": {
         "type": "Transitive",
-        "resolved": "9.0.0",
-        "contentHash": "bTUtGfpGyJnohQzjdXbtc7MqNzkv7CWUSRz54+ucNm0i32rZiIU0VdVPHDBShOl1qhVKRjW8mnEBz3d2vH93tQ==",
+        "resolved": "9.0.14",
+        "contentHash": "laQCcjTM2FnbyznkAu9hwBuQh3z2/OtJKwjGkJOUevylFpFXZIUVq/+MU2jM0HQm1n5wsjjwtLIDOiWJ6Nai3A==",
         "dependencies": {
           "System.Memory": "4.5.5",
           "System.Runtime.CompilerServices.Unsafe": "6.0.0"
