@@ -26,7 +26,7 @@ public class KeyVaultReferencesManagerTest
         Action getSecretValue = () => _manager.GetSecretValue(
             KeyVaultSecretReference.Parse("@Microsoft.KeyVault(VaultName=myvault;SecretName=mysecret)"));
 
-        getSecretValue.Should().Throw<RequestFailedException>().Where(e => e.Status == 401);
+        getSecretValue.Should().ThrowExactly<RequestFailedException>().Where(e => e.Status == 401);
     }
 
     [Fact]
