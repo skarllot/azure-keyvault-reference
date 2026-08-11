@@ -1,4 +1,6 @@
 using System.Collections.Concurrent;
+using System.Linq;
+using System.Runtime.ExceptionServices;
 using Azure;
 using Azure.Core;
 using Azure.Identity;
@@ -27,7 +29,15 @@ public sealed class KeyVaultReferencesManager : IKeyVaultReferencesManager
     public Response<KeyVaultSecret> GetSecretValue(KeyVaultSecretReference secretReference)
     {
         var client = GetSecretClient(secretReference.VaultUri);
-        return client.GetSecret(secretReference.Name, secretReference.Version);
+        try
+        {
+            return client.GetSecret(secretReference.Name, secretReference.Version);
+        }
+        catch (AggregateException e) when (e.InnerExceptions.All(static innerException => innerException is RequestFailedException))
+        {
+            ExceptionDispatchInfo.Capture((RequestFailedException)e.InnerExceptions[0]).Throw();
+            throw;
+        }
     }
 
     private SecretClient GetSecretClient(Uri vaultUri)

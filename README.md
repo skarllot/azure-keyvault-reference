@@ -22,10 +22,15 @@ _The Raiqub Azure Key Vault Reference NuGet packages simplify the integration of
 * [![NuGet](https://img.shields.io/nuget/v/Raiqub.AzureKeyVaultReference?label=&logo=nuget&style=flat-square)![NuGet](https://img.shields.io/nuget/dt/Raiqub.AzureKeyVaultReference?label=&style=flat-square)](https://www.nuget.org/packages/Raiqub.AzureKeyVaultReference/) **Raiqub.AzureKeyVaultReference**: provides support for parsing Azure Key Vault references
 * [![NuGet](https://img.shields.io/nuget/v/Raiqub.AzureKeyVaultReference.Configuration?label=&logo=nuget&style=flat-square)![NuGet](https://img.shields.io/nuget/dt/Raiqub.AzureKeyVaultReference.Configuration?label=&style=flat-square)](https://www.nuget.org/packages/Raiqub.AzureKeyVaultReference.Configuration/) **Raiqub.AzureKeyVaultReference.Configuration**: provides support for integrating Azure Key Vault references with `IConfiguration`
 
+## Supported target frameworks
+* .NET Standard 2.0
+* .NET 8.0
+* .NET 10.0
+
 ## Prerequisites
 Before you begin, you'll need the following:
 
-* .NET 6.0 or later SDK installed on your machine
+* .NET 10 SDK installed on your machine to build this repository
 * An IDE such as Visual Studio, Visual Studio Code, or JetBrains Rider
 * Azure Key Vault instance with appropriate permissions (Get Secrets)
 * Azure credentials configured (the library uses DefaultAzureCredential)
@@ -54,6 +59,7 @@ To use the Azure Key Vault Configuration Provider, follow these steps:
    ```bash
    dotnet add package Raiqub.AzureKeyVaultReference.Configuration
    ```
+   The package provides assets for .NET Standard 2.0, .NET 8.0, and .NET 10.0.
 
 3. **Configure Azure Key Vault references**: In your `appsettings.json` file or any other configuration source,
    add Azure Key Vault references using the `@Microsoft.KeyVault` syntax. For example:
