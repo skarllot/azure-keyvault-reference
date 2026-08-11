@@ -12,11 +12,21 @@ namespace Raiqub.AzureKeyVaultReference;
 public sealed class KeyVaultReferencesManager : IKeyVaultReferencesManager
 {
     private readonly TokenCredential _credential;
+    private readonly Func<SecretClient, KeyVaultSecretReference, Response<KeyVaultSecret>> _getSecretValue;
     private readonly ConcurrentDictionary<string, SecretClient> _clients = new();
 
-    public KeyVaultReferencesManager(TokenCredential? credential = null)
+    public KeyVaultReferencesManager(TokenCredential? credential = null) : this(
+        credential,
+        static (client, secretReference) => client.GetSecret(secretReference.Name, secretReference.Version))
+    {
+    }
+
+    internal KeyVaultReferencesManager(
+        TokenCredential? credential,
+        Func<SecretClient, KeyVaultSecretReference, Response<KeyVaultSecret>> getSecretValue)
     {
         _credential = credential ?? new DefaultAzureCredential();
+        _getSecretValue = getSecretValue;
     }
 
     /// <inheritdoc />
@@ -31,7 +41,7 @@ public sealed class KeyVaultReferencesManager : IKeyVaultReferencesManager
         var client = GetSecretClient(secretReference.VaultUri);
         try
         {
-            return client.GetSecret(secretReference.Name, secretReference.Version);
+            return _getSecretValue(client, secretReference);
         }
         catch (AggregateException e) when (e.InnerExceptions.All(static innerException => innerException is RequestFailedException))
         {
