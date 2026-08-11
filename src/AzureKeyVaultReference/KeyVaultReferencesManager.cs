@@ -43,9 +43,9 @@ public sealed class KeyVaultReferencesManager : IKeyVaultReferencesManager
         {
             return _getSecretValue(client, secretReference);
         }
-        catch (AggregateException e) when (e.InnerExceptions.All(static innerException => innerException is RequestFailedException))
+        catch (AggregateException e) when (e.Flatten().InnerExceptions.OfType<RequestFailedException>().FirstOrDefault() is { } innerException)
         {
-            ExceptionDispatchInfo.Capture((RequestFailedException)e.InnerExceptions[0]).Throw();
+            ExceptionDispatchInfo.Capture(innerException).Throw();
             throw;
         }
     }
