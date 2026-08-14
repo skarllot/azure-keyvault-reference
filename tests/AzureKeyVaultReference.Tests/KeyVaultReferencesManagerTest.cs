@@ -19,15 +19,14 @@ public class KeyVaultReferencesManagerTest
     [Fact]
     public void GivenASecretReferenceWhenTokenIsInvalidThenThrow()
     {
-        var requestFailedException = new RequestFailedException(401, "Unauthorized");
-        using var manager = new KeyVaultReferencesManager(
-            _tokenCredential,
-            (_, _) => throw new AggregateException(requestFailedException));
+        _tokenCredential
+            .GetToken(Arg.Any<TokenRequestContext>(), Arg.Any<CancellationToken>())
+            .Returns(new AccessToken("token", DateTimeOffset.UtcNow.AddDays(1)));
 
-        Action getSecretValue = () => manager.GetSecretValue(
+        Action getSecretValue = () => _manager.GetSecretValue(
             KeyVaultSecretReference.Parse("@Microsoft.KeyVault(VaultName=myvault;SecretName=mysecret)"));
 
-        getSecretValue.Should().ThrowExactly<RequestFailedException>().Where(e => e.Status == requestFailedException.Status);
+        getSecretValue.Should().ThrowExactly<RequestFailedException>().Where(e => e.Status == 401);
     }
 
     [Fact]

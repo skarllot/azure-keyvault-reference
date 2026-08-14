@@ -1,6 +1,4 @@
 using System.Collections.Concurrent;
-using System.Linq;
-using System.Runtime.ExceptionServices;
 using Azure;
 using Azure.Core;
 using Azure.Identity;
@@ -12,21 +10,11 @@ namespace Raiqub.AzureKeyVaultReference;
 public sealed class KeyVaultReferencesManager : IKeyVaultReferencesManager
 {
     private readonly TokenCredential _credential;
-    private readonly Func<SecretClient, KeyVaultSecretReference, Response<KeyVaultSecret>> _getSecretValue;
     private readonly ConcurrentDictionary<string, SecretClient> _clients = new();
 
-    public KeyVaultReferencesManager(TokenCredential? credential = null) : this(
-        credential,
-        static (client, secretReference) => client.GetSecret(secretReference.Name, secretReference.Version))
-    {
-    }
-
-    internal KeyVaultReferencesManager(
-        TokenCredential? credential,
-        Func<SecretClient, KeyVaultSecretReference, Response<KeyVaultSecret>> getSecretValue)
+    public KeyVaultReferencesManager(TokenCredential? credential = null)
     {
         _credential = credential ?? new DefaultAzureCredential();
-        _getSecretValue = getSecretValue;
     }
 
     /// <inheritdoc />
@@ -39,15 +27,7 @@ public sealed class KeyVaultReferencesManager : IKeyVaultReferencesManager
     public Response<KeyVaultSecret> GetSecretValue(KeyVaultSecretReference secretReference)
     {
         var client = GetSecretClient(secretReference.VaultUri);
-        try
-        {
-            return _getSecretValue(client, secretReference);
-        }
-        catch (AggregateException e) when (e.Flatten().InnerExceptions.OfType<RequestFailedException>().FirstOrDefault() is { } innerException)
-        {
-            ExceptionDispatchInfo.Capture(innerException).Throw();
-            throw;
-        }
+        return client.GetSecret(secretReference.Name, secretReference.Version);
     }
 
     private SecretClient GetSecretClient(Uri vaultUri)
