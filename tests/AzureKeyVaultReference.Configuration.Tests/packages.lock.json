@@ -4,9 +4,9 @@
     "net10.0": {
       "AwesomeAssertions": {
         "type": "Direct",
-        "requested": "[9.3.0, )",
-        "resolved": "9.3.0",
-        "contentHash": "8lGLYap2ec2gNLgjf2xKZaKLpQ7j36oJvrYzBVVpNAumqnxRdevqqhEF66qxE92f8y2+zsbQ061DeHG61ZhzaQ=="
+        "requested": "[9.5.0, )",
+        "resolved": "9.5.0",
+        "contentHash": "F92MsjoF8B7IdcWETru4QGZx6VAl38qQPKNGS3kwPwlLB5lb0O4bhFqG8a8sz2estQJWkKmZkVy1r19HTaFcpg=="
       },
       "coverlet.collector": {
         "type": "Direct",
