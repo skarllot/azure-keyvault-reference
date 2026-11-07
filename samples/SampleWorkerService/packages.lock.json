@@ -32,20 +32,6 @@
           "Microsoft.Extensions.Options": "10.0.14"
         }
       },
-      "Azure.Core": {
-        "type": "Transitive",
-        "resolved": "1.64.0",
-        "contentHash": "SMmFWcTyRMdwdoLk+3yN9PrnxznDis1T8PpOeDFuB3/56ipMDYkPl7P8z5qNRzWWd9LL0lFJ5qhkhmomYamWUQ==",
-        "dependencies": {
-          "Microsoft.Bcl.AsyncInterfaces": "10.0.10",
-          "Microsoft.Extensions.Configuration.Abstractions": "10.0.10",
-          "Microsoft.Extensions.Hosting.Abstractions": "10.0.10",
-          "Microsoft.Identity.Client": "4.90.0",
-          "Microsoft.Identity.Client.Extensions.Msal": "4.90.0",
-          "System.ClientModel": "1.16.0",
-          "System.Memory.Data": "10.0.10"
-        }
-      },
       "Microsoft.Bcl.AsyncInterfaces": {
         "type": "Transitive",
         "resolved": "10.0.10",
@@ -327,7 +313,7 @@
       "Raiqub.AzureKeyVaultReference": {
         "type": "Project",
         "dependencies": {
-          "Azure.Identity": "[1.21.0, )",
+          "Azure.Core": "[1.64.0, )",
           "Azure.Security.KeyVault.Secrets": "[4.12.0, )"
         }
       },
@@ -341,13 +327,19 @@
           "Raiqub.AzureKeyVaultReference": "[1.0.0, )"
         }
       },
-      "Azure.Identity": {
+      "Azure.Core": {
         "type": "CentralTransitive",
-        "requested": "[1.21.0, )",
-        "resolved": "1.21.0",
-        "contentHash": "GeFv8sGwRKvDKwI2WFy8r0mhmlxEVZg24Sit2NogTjiSO8RVjllWM65OT6e1sKjOvG8V74y7hAbaELUUPjZQSw==",
+        "requested": "[1.64.0, )",
+        "resolved": "1.64.0",
+        "contentHash": "SMmFWcTyRMdwdoLk+3yN9PrnxznDis1T8PpOeDFuB3/56ipMDYkPl7P8z5qNRzWWd9LL0lFJ5qhkhmomYamWUQ==",
         "dependencies": {
-          "Azure.Core": "1.53.0"
+          "Microsoft.Bcl.AsyncInterfaces": "10.0.10",
+          "Microsoft.Extensions.Configuration.Abstractions": "10.0.10",
+          "Microsoft.Extensions.Hosting.Abstractions": "10.0.10",
+          "Microsoft.Identity.Client": "4.90.0",
+          "Microsoft.Identity.Client.Extensions.Msal": "4.90.0",
+          "System.ClientModel": "1.16.0",
+          "System.Memory.Data": "10.0.10"
         }
       },
       "Azure.Security.KeyVault.Secrets": {
