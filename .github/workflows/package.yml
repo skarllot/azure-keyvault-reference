@@ -17,6 +17,10 @@ jobs:
   nuget:
 
     runs-on: ubuntu-latest
+    environment: release
+    permissions:
+      contents: read
+      id-token: write
 
     steps:
       - name: 🛡️ Harden Runner
@@ -25,6 +29,7 @@ jobs:
           disable-sudo: true
           egress-policy: block
           allowed-endpoints: >
+            *.actions.githubusercontent.com:443
             *.azureedge.net:443
             *.digicert.com:80
             *.nuget.org:443
@@ -64,5 +69,11 @@ jobs:
       - name: 📦 Pack
         run: dotnet pack /p:CI=true /p:PublicRelease=true --no-build -c Release
 
+      - name: 🔑 NuGet login (OIDC)
+        id: login
+        uses: NuGet/login@ebc737b6fc418a6ca0073cf116ec8dc156d8b81e # v1
+        with:
+          user: ${{ secrets.NUGET_USER }}
+
       - name: 🚀 Publish
-        run: dotnet nuget push "artifacts/*.nupkg" -s https://api.nuget.org/v3/index.json -k ${{ secrets.NUGET_APIKEY }} --skip-duplicate
+        run: dotnet nuget push "artifacts/*.nupkg" -s https://api.nuget.org/v3/index.json -k ${{ steps.login.outputs.NUGET_API_KEY }} --skip-duplicate
